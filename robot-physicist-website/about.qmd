@@ -1,5 +1,55 @@
 ---
-title: "About"
+title: "Sobre el proyecto"
+page-layout: full
 ---
 
-About this site
+# ⚛️ El Físico Remoto  
+**Physics on Autopilot — Ciencia Transparente y Automatizada**
+
+Este sitio documenta el desarrollo de un pipeline CI/CD para el análisis físico automatizado, utilizando datos abiertos del experimento ATLAS (CERN).  
+Cada `git push` a la rama principal desencadena una GitHub Action que ejecuta el siguiente flujo:
+
+- 🐍 Configura el entorno Python y Quarto  
+- 📦 Instala las dependencias científicas (`uproot`, `awkward-array`, `hist`)  
+- 🧪 Ejecuta el análisis físico con Python y Marimo  
+- 🖥️ Compila el sitio web con Quarto  
+- 🚀 Publica automáticamente en GitHub Pages
+
+---
+
+## 🌟 Objetivo del Proyecto
+
+Lograr la **máxima reproducibilidad** y **transparencia científica** mediante herramientas modernas, abiertas y automatizadas.
+
+Este enfoque permite que cualquier persona pueda:
+
+- Ver los resultados en tiempo real
+- Reproducir el análisis completo
+- Contribuir al desarrollo del robot físico
+
+---
+
+## ⚙️ Tecnologías Clave
+
+| Característica       | Herramientas                              | Propósito en el Reto                                      |
+|----------------------|-------------------------------------------|------------------------------------------------------------|
+| Análisis Físico      | Python, uproot, awkward-array, hist       | Lectura eficiente de ROOT y cálculo de masas invariantes   |
+| Interactividad       | Marimo                                    | Celdas reactivas y widgets para análisis dinámico          |
+| Documentación        | Quarto                                    | Sitio web profesional con contenido dinámico               |
+| Automatización CI/CD | GitHub Actions                            | Orquestación del flujo completo y despliegue continuo      |
+
+---
+
+## 🧑‍🔬 Nuestro Equipo
+
+Este proyecto es desarrollado por estudiantes apasionados por la ciencia abierta, la automatización y el diseño reproducible:
+
+- **Juan Carlos Mendoza Sánchez** — Estudiante de Física  
+- **Juan Daniel Mendoza Sánchez** — Estudiante de Ingeniería en Sistemas  
+- **Eugenia Ramírez** — Estudiante de Ingeniería en Sistemas  
+- **Antonia Morales** — Estudiante de Física  
+- **Ángel Contreras** — Estudiante de Matemática
+
+---
+
+## 📁 Estructura del Repositorio

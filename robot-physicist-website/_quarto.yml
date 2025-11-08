@@ -2,25 +2,25 @@ project:
   type: website
 
 website:
-  title: "robot-physicist-website"
+  title: "ROBOT FISICO"
   navbar:
     right:
-      - href: index.qmd
-        text: Home
-      - href: about.qmd
-        text: About
-      - href: charts/index.qmd
-        text: Charts
-      - href: contact.qmd
-        text: Contact
+    - href: index.qmd
+      text: 🏠 Home
+    - href: about.qmd
+      text: 📖 About
+    - href: charts/index.qmd
+      text: 📊 Charts
+    - href: contact.qmd
+      text: ✉️ Contact
 
 format:
   html:
-    theme:
-      - morph
-      - brand
+    theme: default
     css: styles.css
     toc: true
-
+    include-in-header:
+      - text: |
+          <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 
