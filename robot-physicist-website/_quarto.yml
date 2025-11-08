@@ -6,9 +6,9 @@ website:
   navbar:
     right:
       - href: index.qmd
-        text: Home
+        text: Inicio
       - href: about.qmd
-        text: About
+        text: Acerca de
       - href: charts/index.qmd
         text: Charts
       - href: contact.qmd

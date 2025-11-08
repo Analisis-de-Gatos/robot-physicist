@@ -1,0 +1,167 @@
+name: Process ATLAS ROOT Open Data v2
+
+on:
+  workflow_dispatch:
+    inputs:
+      data_file:
+        description: "Path to the Data URLs input file"
+        default: "data.csv"
+        required: true
+      cut_value:
+        description: "Cut value for the analysis"
+        default: "10000"
+        required: false
+      min_energy:
+        description: "Minimum energy in GeV"
+        default: "105"
+        required: false
+      max_energy:
+        description: "Maximum energy in GeV"
+        default: "160"
+        required: false
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.read_file.outputs.files }}
+      data_file_name: ${{ steps.extract_name.outputs.data_file_name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Read CSV File and Prepare Jobs
+        id: read_file
+        run: |
+          files=$(jq -R -s -c 'split("\n")[:-1]' < ${{ github.event.inputs.data_file }})
+          echo "files=$files" >> $GITHUB_OUTPUT
+
+      - name: Extract Data File Name
+        id: extract_name
+        run: |
+          data_file_name=$(basename "${{ github.event.inputs.data_file }}" .csv)
+          echo "data_file_name=$data_file_name" >> $GITHUB_OUTPUT
+
+  process-file:
+    needs: setup
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        file: ${{ fromJSON(needs.setup.outputs.files) }}
+    outputs:
+      data_file_name: ${{ needs.setup.outputs.data_file_name }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ROOT Script in Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: rootproject/root:latest
+          options: --rm -v ${{ github.workspace }}:/workspace
+          run: |
+            cd /workspace
+            python3 gamma-gamma-analysis-v1.py \
+              "${{ matrix.file }}" \
+              --cut-value "${{ github.event.inputs.cut_value }}" \
+              --min-energy "${{ github.event.inputs.min_energy }}" \
+              --max-energy "${{ github.event.inputs.max_energy }}"
+
+      - name: Commit and Push Histogram Plot
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if ls plots/histogram_*.png plots/histogram_*.root 1> /dev/null 2>&1; then
+            git add plots/histogram_*.png plots/histogram_*.root
+            git diff --cached --exit-code || git commit -m "Add updated histogram plot" --allow-empty
+          else
+            echo "No plot generated"
+          fi
+
+          git fetch origin main
+          git stash push -m "Stash uncommitted changes for rebase"
+          git rebase origin/main
+          git stash pop || true
+          git push --force-with-lease origin HEAD:main
+
+  merge-root-files:
+    needs: process-file
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      data_file_name: ${{ needs.setup.outputs.data_file_name }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify .root Files
+        run: |
+          echo "Listing all .root files in plots directory:"
+          ls -lh plots/*.root || echo "No .root files found in plots directory"
+
+      - name: Set up ROOT environment with Docker and Merge Files
+        uses: addnab/docker-run-action@v3
+        with:
+          image: rootproject/root:latest
+          options: --rm -v ${{ github.workspace }}:/workspace
+          run: |
+            cd /workspace/plots
+            hadd -f "/workspace/plots/merged_histograms_${{ needs.setup.outputs.data_file_name }}.root" /workspace/plots/histogram_*.root
+
+      - name: Commit and Push Merged ROOT File
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "plots/merged_histograms_${{ needs.setup.outputs.data_file_name }}.root" || echo "No merged ROOT file generated"
+          git diff --cached --exit-code || git commit -m "Add merged ROOT file" --allow-empty
+          git fetch origin main
+          git rebase origin/main
+          git push --force-with-lease origin HEAD:main || (echo "Rebase failed, retrying..." && git pull --rebase origin main && git push --force-with-lease origin HEAD:main)
+
+  generate-png:
+    needs: merge-root-files
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run root-to-png.py in Docker
+        uses: addnab/docker-run-action@v3
+        with:
+          image: rootproject/root:latest
+          options: --rm -v ${{ github.workspace }}:/workspace
+          run: |
+            cd /workspace
+            python3 root-to-png.py "plots/merged_histograms_${{ needs.merge-root-files.outputs.data_file_name }}.root"
+
+      - name: Commit and Push Merged PNG File
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add "plots/merged_histograms_${{ needs.merge-root-files.outputs.data_file_name }}.png" || echo "No merged PNG file generated"
+          git diff --cached --exit-code || git commit -m "Add merged histogram as PNG" --allow-empty
+
+          # Fetch latest changes, rebase, and push
+          git fetch origin main
+          git rebase origin/main
+          git push --force-with-lease origin HEAD:main || (
+            echo "Rebase failed, retrying with pull --rebase..." &&
+            git pull --rebase origin main &&
+            git push --force-with-lease origin HEAD:main
+          )
