@@ -1,0 +1,56 @@
+name: Quarto Publish (El Físico Remoto)
+
+# Activar en cada push a la rama principal (main)
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Runner estándar, ya que Quarto maneja la configuración de Python
+
+    # Permisos necesarios para el despliegue
+    permissions:
+      contents: write # Para el checkout del código
+      pages: write    # Para desplegar el sitio en Pages
+      id-token: write # Para autenticación de despliegue
+
+    steps:
+      - name: 1. Checkout del Código
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necesario para Quarto/Git para el manejo de versiones
+
+      - name: 2. Configurar Quarto, Python y Dependencias HEP
+        # Esta acción instala Quarto CLI, configura Python y automáticamente:
+        # ejecuta 'pip install -r requirements.txt' (instalando marimo, uproot, awkward-array, etc.)
+        uses: quarto-dev/quarto-action@v1
+        with:
+          version: 'latest' # Usar la última versión estable de Quarto
+          args: install-python-dependencies # Instala todas las librerías de tu 'requirements.txt'
+
+      - name: 3. Instalar la Extensión marimo para Quarto
+        # Instalar el filtro que permite a Quarto procesar los bloques de código reactivo {.marimo}
+        run: quarto install extension marimo-team/quarto-marimo
+
+      - name: 4. Ejecutar Análisis y Renderizar el Sitio Web
+        # 'quarto render' ejecuta el análisis (código marimo/Python) y compila los .qmd a HTML
+        run: quarto render
+        
+      # --- PASOS DE DESPLIEGUE A GITHUB PAGES ---
+
+      - name: 5. Configurar GitHub Pages
+        # Configurar el ambiente para el hosting
+        uses: actions/configure-pages@v4
+
+      - name: 6. Subir Artefactos (Resultados Renderizados)
+        # Sube la carpeta de salida '_site' (generada por Quarto)
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site' 
+
+      - name: 7. Desplegar a GitHub Pages
+        # Publicar los artefactos en el sitio web público
+        id: deployment
+        uses: actions/deploy-pages@v
