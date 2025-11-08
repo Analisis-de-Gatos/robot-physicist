@@ -24,7 +24,7 @@ jobs:
       - name: 🛠️ Configurar Quarto y Python
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 'latest' 
+          version: '1.8.25' 
           python-version: '3.11' 
 
       - name: 📦 Instalar dependencias de Python (uproot, marimo, hist, etc.)
