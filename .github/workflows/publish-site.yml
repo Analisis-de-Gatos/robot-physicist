@@ -53,4 +53,4 @@ jobs:
       - name: 7. Desplegar a GitHub Pages
         # Publicar los artefactos en el sitio web público
         id: deployment
-        uses: actions/deploy-pages@v
+        uses: actions/deploy-pages@v4
