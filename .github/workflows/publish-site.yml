@@ -1,70 +1,69 @@
 name: Quarto Publish (Físico Remoto CI/CD)
 
 on:
-  # Se ejecuta con cada 'push' a la rama principal
   push:
-    branches: [main]
-  # Permite la ejecución manual desde la interfaz de GitHub Actions
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    # Permisos necesarios para que la Action pueda descargar y publicar en GitHub Pages
     permissions:
-      contents: write 
-      pages: write    
-      id-token: write 
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
-      - name: ⬇️ Checkout del Repositorio
+      # Paso 1: Checkout del código fuente
+      - name: Checkout del Repositorio
         uses: actions/checkout@v4
+        # Permite acceder y trabajar con el código del repositorio
 
-      # --- PASO 1: Configuración del Entorno (Quarto y Python) ---
-      # Usamos 'latest' para mayor flexibilidad, asegurando que Quarto esté instalado.
-      - name: 🛠️ Configurar Quarto y Python
+      # Paso 2: Instalar Quarto y configurar Python
+      - name: Configurar Quarto y Python
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 'latest' # Usar 'latest' para evitar fallos por versiones específicas
-          python-version: '3.11' 
+          version: latest
+          python-version: 3.11
+        # Instala Quarto y configura Python 3.11 para mayor compatibilidad
 
-      - name: 📦 Instalar dependencias de Python (uproot, marimo, hist, etc.)
-        # Se asume que requirements.txt está en la raíz del repositorio
+      # Paso 3: Instalar dependencias
+      - name: Instalar dependencias
+        run: uv pip install -r requirements.txt
+        # Instala todas las librerías necesarias desde requirements.txt
+
+      # Paso 4: Instalar extensión Quarto marimo
+      - name: Instalar extensión Quarto marimo
         run: |
-          pip install -r requirements.txt
+          quarto install
+          quarto add marimo-team/quarto-marimo
+        # Instala Quarto y la extensión marimo para notebooks interactivos
 
-      # 🔍 Opcional: Verificar que las dependencias principales estén instaladas
-      - name: Verificar Instalación
+      # Paso 5: Renderizar sitio Quarto
+      - name: Renderizar sitio Quarto
+        run: cd robot-physicist-website && quarto render
+        # Genera automáticamente los HTML en la carpeta correcta
+
+      # Paso 6: Validar archivos generados y el build
+      - name: Validar generación de HTML
         run: |
-          python -c "import uproot; print('uproot instalado')"
-          python -c "import marimo; print('marimo instalado')"
+          if ls robot-physicist-website/site/*.html; then
+            echo "Archivos HTML generados correctamente."
+          else
+            echo "ERROR: No se generaron los archivos HTML." && exit 1
+          fi
+        # Verifica que los archivos HTML existen en la carpeta de salida
 
-      # --- PASO 2: Descarga de Datos (Tu código de análisis puede hacer esto) ---
-      # Mantener este paso como recordatorio o para ejecutar scripts auxiliares de descarga
-      - name: 📥 (Opcional) Script de Descarga de Datos
-        run: echo "El código de análisis en Quarto manejará la descarga y lectura."
-          
-      # --- PASO 3: Análisis y Renderizado Quarto ---
-      - name: ⚙️ Ejecutar Análisis y Renderizado del Sitio Quarto
-        # Navega al subdirectorio donde se encuentra el proyecto Quarto (con _quarto.yml)
-        run: |
-          cd robot-physicist-website
-          quarto render
-
-      # --- PASO 4: Despliegue a GitHub Pages ---
-      # Las acciones de despliegue son correctas y usan la ruta del sitio compilado
-      - name: ⚙️ Configurar GitHub Pages
-        uses: actions/configure-pages@v4
-        with:
-          # La carpeta de salida es 'robot-physicist-website/_site'
-          static_site_root: 'robot-physicist-website/_site' 
-          
-      - name: 🚀 Subir artefacto para Pages
+      # Paso 7: Subir y desplegar artefactos
+      - name: Subir artefactos a GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'robot-physicist-website/_site' 
+          path: robot-physicist-website/site
+        # Sube los archivos generados para su publicación
 
-      - name: 🌐 Desplegar a GitHub Pages
+      - name: Desplegar a GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        # Publica el sitio en GitHub Pages
+
