@@ -1,56 +1,61 @@
-name: Quarto Publish (El Físico Remoto)
+name: Quarto Publish (Físico Remoto CI/CD)
 
-# Activar en cada push a la rama principal (main)
 on:
+  # Se ejecuta con cada 'push' a la rama principal
   push:
-    branches:
-      - main 
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest # Runner estándar, ya que Quarto maneja la configuración de Python
+    runs-on: ubuntu-latest
 
-    # Permisos necesarios para el despliegue
     permissions:
-      contents: write # Para el checkout del código
-      pages: write    # Para desplegar el sitio en Pages
-      id-token: write # Para autenticación de despliegue
+      contents: write 
+      pages: write    
+      id-token: write 
 
     steps:
-      - name: 1. Checkout del Código
+      - name: ⬇️ Checkout del Repositorio
         uses: actions/checkout@v4
+
+      # --- PASO 1: Configuración del Entorno (Quarto y Python) ---
+      # Esta acción se encarga de instalar Python, pip y Quarto.
+      - name: 🛠️ Configurar Quarto y Python
+        uses: quarto-dev/quarto-actions/setup@v2
         with:
-          fetch-depth: 0 # Necesario para Quarto/Git para el manejo de versiones
+          version: 'latest' 
+          python-version: '3.11' 
 
-      - name: 2. Configurar Quarto, Python y Dependencias HEP
-        # Esta acción instala Quarto CLI, configura Python y automáticamente:
-        # ejecuta 'pip install -r requirements.txt' (instalando marimo, uproot, awkward-array, etc.)
-        uses: quarto-dev/quarto-action@v1
-        with:
-          version: 'latest' # Usar la última versión estable de Quarto
-          args: install-python-dependencies # Instala todas las librerías de tu 'requirements.txt'
+      - name: 📦 Instalar dependencias de Python (uproot, marimo, hist, etc.)
+        # Usa el archivo requirements.txt creado en el Paso 1
+        run: |
+          pip install -r requirements.txt
 
-      - name: 3. Instalar la Extensión marimo para Quarto
-        # Instalar el filtro que permite a Quarto procesar los bloques de código reactivo {.marimo}
-        run: quarto install extension marimo-team/quarto-marimo
+      # --- PASO 2: Descarga de Datos (Tu código de análisis puede hacer esto) ---
+      # Si el código de análisis en el .qmd descarga los datos, puedes omitir este paso.
+      - name: 📥 (Opcional) Script de Descarga de Datos
+        run: echo "El código de análisis en Quarto manejará la descarga y lectura."
+          
+      # --- PASO 3: Análisis y Renderizado Quarto ---
+      - name: ⚙️ Ejecutar Análisis y Renderizado del Sitio Quarto
+        # IMPORTANTÍSIMO: Navegar al subdirectorio donde está el proyecto Quarto
+        run: |
+          cd robot-physicist-website
+          quarto render
 
-      - name: 4. Ejecutar Análisis y Renderizar el Sitio Web
-        # 'quarto render' ejecuta el análisis (código marimo/Python) y compila los .qmd a HTML
-        run: quarto render
-        
-      # --- PASOS DE DESPLIEGUE A GITHUB PAGES ---
-
-      - name: 5. Configurar GitHub Pages
-        # Configurar el ambiente para el hosting
+      # --- PASO 4: Despliegue a GitHub Pages ---
+      - name: ⚙️ Configurar GitHub Pages
         uses: actions/configure-pages@v4
-
-      - name: 6. Subir Artefactos (Resultados Renderizados)
-        # Sube la carpeta de salida '_site' (generada por Quarto)
+        with:
+          # La carpeta de salida es la subcarpeta del proyecto Quarto
+          static_site_root: 'robot-physicist-website/_site' 
+          
+      - name: 🚀 Subir artefacto para Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site' 
+          path: 'robot-physicist-website/_site' 
 
-      - name: 7. Desplegar a GitHub Pages
-        # Publicar los artefactos en el sitio web público
+      - name: 🌐 Desplegar a GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
