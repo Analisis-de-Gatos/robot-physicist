@@ -30,7 +30,7 @@ jobs:
 
       # Paso 3: Instalar dependencias
       - name: Instalar dependencias
-        run: pip install -r requirements.txt
+        run: uv pip install -r requirements.txt
         # Instala todas las librerías necesarias desde requirements.txt
 
       # Paso 4: Instalar extensión Quarto marimo
