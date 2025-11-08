@@ -1,0 +1,14 @@
+# Dependencias necesarias para el proyecto "El Físico Remoto"
+#
+# Instalación con: pip install -r requirements.txt
+
+# I. LECTURA Y MANIPULACIÓN DE DATOS (ATLAS/ROOT)
+uproot             # Para leer archivos ROOT (del CERN) sin dependencia del framework ROOT nativo.
+awkward            # Para la manipulación eficiente de datos anidados y estructurados de física de partículas.
+
+# II. ANÁLISIS Y GRÁFICOS
+hist               # Herramienta moderna para la creación, manipulación y almacenamiento eficiente de histogramas.
+matplotlib         # Biblioteca estándar para la generación de gráficos estáticos (útil para la visualización del histograma).
+
+# III. INTERACTIVIDAD Y DOCUMENTACIÓN
+marimo             # Motor reactivo esencial para integrar análisis interactivos en Quarto (a través de la extensión).
