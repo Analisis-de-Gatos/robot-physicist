@@ -4,12 +4,14 @@ on:
   # Se ejecuta con cada 'push' a la rama principal
   push:
     branches: [main]
+  # Permite la ejecución manual desde la interfaz de GitHub Actions
   workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    # Permisos necesarios para que la Action pueda descargar y publicar en GitHub Pages
     permissions:
       contents: write 
       pages: write    
@@ -20,35 +22,42 @@ jobs:
         uses: actions/checkout@v4
 
       # --- PASO 1: Configuración del Entorno (Quarto y Python) ---
-      # Esta acción se encarga de instalar Python, pip y Quarto.
+      # Usamos 'latest' para mayor flexibilidad, asegurando que Quarto esté instalado.
       - name: 🛠️ Configurar Quarto y Python
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: '1.8.25' 
+          version: 'latest' # Usar 'latest' para evitar fallos por versiones específicas
           python-version: '3.11' 
 
       - name: 📦 Instalar dependencias de Python (uproot, marimo, hist, etc.)
-        # Usa el archivo requirements.txt creado en el Paso 1
+        # Se asume que requirements.txt está en la raíz del repositorio
         run: |
           pip install -r requirements.txt
 
+      # 🔍 Opcional: Verificar que las dependencias principales estén instaladas
+      - name: Verificar Instalación
+        run: |
+          python -c "import uproot; print('uproot instalado')"
+          python -c "import marimo; print('marimo instalado')"
+
       # --- PASO 2: Descarga de Datos (Tu código de análisis puede hacer esto) ---
-      # Si el código de análisis en el .qmd descarga los datos, puedes omitir este paso.
+      # Mantener este paso como recordatorio o para ejecutar scripts auxiliares de descarga
       - name: 📥 (Opcional) Script de Descarga de Datos
         run: echo "El código de análisis en Quarto manejará la descarga y lectura."
           
       # --- PASO 3: Análisis y Renderizado Quarto ---
       - name: ⚙️ Ejecutar Análisis y Renderizado del Sitio Quarto
-        # IMPORTANTÍSIMO: Navegar al subdirectorio donde está el proyecto Quarto
+        # Navega al subdirectorio donde se encuentra el proyecto Quarto (con _quarto.yml)
         run: |
           cd robot-physicist-website
           quarto render
 
       # --- PASO 4: Despliegue a GitHub Pages ---
+      # Las acciones de despliegue son correctas y usan la ruta del sitio compilado
       - name: ⚙️ Configurar GitHub Pages
         uses: actions/configure-pages@v4
         with:
-          # La carpeta de salida es la subcarpeta del proyecto Quarto
+          # La carpeta de salida es 'robot-physicist-website/_site'
           static_site_root: 'robot-physicist-website/_site' 
           
       - name: 🚀 Subir artefacto para Pages
