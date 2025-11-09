@@ -15,7 +15,7 @@ website:
       - href: histogramas/index.qmd
         text: 📊 Histogramas
       - href: divulgacion.qmd
-        text: 💡Divulgación
+        text: ❓ Preguntas Frecuentes
       - href: contact.qmd
         text: ✉️ Contacto
 
