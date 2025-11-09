@@ -1,12 +1,11 @@
 project:
   type: website
   output-dir: site
-  
 
 website:
-  title: "El FÍSICO ROBOT"
+  # Título del navbar con imagen y texto (se acepta HTML)
+  title: "<span class='navbar-title'><img src='gato.png' alt='logo'>El FÍSICO ROBOT</span>"
   favicon: gato.png
-  logo: gato.png
   navbar:
     right:
       - href: index.qmd
@@ -27,6 +26,14 @@ format:
     toc: true
     include-in-header:
       - text: |
+          <style>
+            .navbar-title {
+              display: flex;
+              align-items: center;
+            }
+            .navbar-title img {
+              height: 32px;
+              margin-right: 10px;
+            }
+          </style>
           <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
-
