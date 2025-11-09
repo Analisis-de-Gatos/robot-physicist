@@ -10,9 +10,9 @@
 
 ## 🌟 Resumen del Proyecto: Ciencia Transparente y Automatizada
 
-Este proyecto implementa un *pipeline* **CI/CD (Integración y Despliegue Continuo)** para el análisis de **datos abiertos del experimento ATLAS (CERN)**, utilizando **Python, marimo y Quarto**.
+Este proyecto implementa un *pipeline* **CI/CD (Integración y Despliegue Continuo)** para el análisis de **datos abiertos del experimento ATLAS (CERN)**, utilizando **Python, marimo y Quarto**. El objetivo es lograr la **máxima reproducibilidad y transparencia científica**. 
 
-El objetivo es lograr la **máxima reproducibilidad y transparencia científica**. Cada `git push` a la rama principal desencadena una GitHub Action que ejecuta el siguiente flujo:
+Cada `git push` a la rama principal desencadena una GitHub Action que ejecuta el siguiente flujo:
 
 1.  **Configura** el entorno Python y Quarto.
 2.  **Instala** las dependencias de física (`uproot`, `awkward-array`, etc.).
@@ -44,33 +44,36 @@ El informe y los gráficos interactivos generados por la última ejecución auto
 ```
 
 .
+.
 ├── .github/workflows/
-│   └── publish-site.yml       \# Workflow de CI/CD (GitHub Action).
-├── robot-physicist-website/ \# Directorio raíz del proyecto Quarto.
-│   ├── \_extensions/marimo-team/marimo \# Extensión para ejecutar marimo.
-│         └──_extension.yml
-│         └──command.py
-│         └──extract.py
-│         └──marimo-execute.lua
-│         └──utils.lua
-│   ├── charts/                       \# Sub-páginas de análisis.
-│      └──marimotest copy/
-│         └──index.qmd
-│      └──marimotest
-│         └──index.qmd/
-│      └──index.qmd.
-│   ├── .gitignore
-│   ├── _quarto.yml
-│   ├── about.qmd
-│   ├── index.qmd         \# Página principal.
-│   └── styles.css
-├── .gitignore 
-├── requirements.txt           \# Lista de dependencias de Python.
-├── LICENSE
-└── README.md
+│   └── publish-site.yml        # CI/CD: construye y publica el sitio automáticamente
+├── robot-physicist-website/   # Contiene todo el sitio Quarto y análisis
+│   ├── _extensions/marimo-team/marimo # Extensión marimo para Quarto
+│   │    ├── _extension.yml     # Configuración de la extensión
+│   │    ├── command.py         # Ejecuta comandos marimo
+│   │    ├── extract.py         # Extrae celdas o datos
+│   │    ├── marimo-execute.lua # Ejecución reactiva de marimo
+│   │    └── utils.lua          # Utilidades para la extensión
+│   ├── charts/                 # Subpáginas y módulos de análisis
+│   │    ├── marimotest copy/   # Experimentos o tests (agrega README)
+│   │    │    └── index.qmd     # Explica el test al inicio del archivo
+│   │    ├── marimotest/
+│   │    │    └── index.qmd     # Análisis experimental con marimo
+│   │    └── index.qmd          # Índice de la sección charts
+│   ├── .gitignore              # Ignora archivos temporales/locales
+│   ├── _quarto.yml             # Configuración global del sitio Quarto
+│   ├── about.qmd               # Página "Sobre el proyecto/equipo"
+│   ├── fondo.jpg               # Imagen de fondo (opcional)
+│   ├── index.qmd               # Página principal del sitio
+│   ├── main.py                 # Script principal para rutinas científicas
+│   └── styles.css              # Personalización visual del sitio
+├── .gitignore                  # Ignora archivos temporales generales
+├── requirements.txt            # Dependencias Python del análisis
+├── LICENSE                     # Licencia del repositorio
+└── README.md                   # Documentación principal y guía de uso
+
 
 ````
-
 ---
 
 ## 💻 Desarrollo Local
@@ -83,27 +86,23 @@ Para desarrollar el análisis y previsualizar el sitio web en tu máquina local:
 2.  **Instalar Quarto:** Sigue las instrucciones oficiales de instalación.
 
     ➡️ [https://quarto.org/docs/get-started/](https://quarto.org/docs/get-started/)
-
+    
 ### 2. Configuración y Ejecución
 
-1.  **Instalar Dependencias de Python:** Desde la raíz del repositorio, instala las bibliotecas de física y `marimo`.
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-2.  **Navegar a la Carpeta del Sitio Web:**
-
-    ```sh
-    cd robot-physicist-website
-    ```
-
-3.  **Ejecutar Vista Previa (Modo Desarrollo):** Quarto abrirá el sitio en tu navegador y lo actualizará automáticamente con cada cambio.
-
-    ```sh
-    quarto preview
-    ```
-
+1. **Clona el repositorio y navega al directorio raíz:**
+   ```
+   git clone https://github.com/Analisis-de-Gatos/robot-physicist.git
+   cd robot-physicist
+   ```
+2. **Instala dependencias:**
+   ```
+   pip install -r requirements.txt
+   ```
+3. **Lanza el sitio web localmente:**
+   ```
+   cd robot-physicist-website
+   quarto preview
+   ```
 ---
 
 ## 🤖 Automatización y CI/CD (GitHub Actions)
@@ -126,5 +125,8 @@ Este repositorio está publicado bajo la licencia **MIT**. Consulta el archivo [
 
 ## Integrantes
 
-[![Miguel](https://img.shields.io/badge/Gato_Miguel-lider-orange?style=flat-square&logo=github)](enlace-perfil)  
-[![Jose](https://img.shields.io/badge/Gato_Jose-backend-blue?style=flat-square&logo=github)](enlace-perfil)
+[![Angel](https://img.shields.io/badge/Angel-008000?style=flat-square&logo=github)](enlace-perfil)
+[![Antonia](https://img.shields.io/badge/Antonia-pink?style=flat-square&logo=github)](enlace-perfil) 
+[![Eugenia](https://img.shields.io/badge/Eugenia-241571?style=flat-square&logo=github)](enlace-perfil)
+[![Juan Carlos](https://img.shields.io/badge/Juan%20Carlos-6a1b9a?style=flat-square&logo=github)](enlace-perfil)
+[![Juan Daniel](https://img.shields.io/badge/Juan%20Daniel-0288d1?style=flat-square&logo=github)](enlace-perfil)
