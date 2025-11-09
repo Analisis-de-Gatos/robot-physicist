@@ -1,5 +1,5 @@
 ---
-title: "ROBOT FISICO"
+title: "El FÍSICO ROBOT"
 page-layout: full
 ---
 
@@ -11,7 +11,7 @@ page-layout: full
 ::: {.callout-note}
 ## ¿Qué es esto?
 Este sitio documenta y publica el trabajo de nuestro robot físico, una herramienta automatizada para el análisis científico.  
-Usamos tecnologías modernas como **Quarto**, **Marimo**, **Python**, y **GitHub Actions** para garantizar que cada resultado sea **reproducible**, **visual**, y **colaborativo**.
+Usamos tecnologías modernas como **Quarto**, **Python**, y **GitHub Actions** para garantizar que cada resultado sea reproducible, visual y colaborativo.
 :::
 
 ## 🔍 ¿Qué puedes encontrar aquí?
@@ -23,4 +23,36 @@ Usamos tecnologías modernas como **Quarto**, **Marimo**, **Python**, y **GitHub
 
 ## 🚀 Últimos resultados
 
-Los resultados Xd
+Resultados recientes procesados automáticamente a partir de los datos del experimento **ATLAS (CERN)**, utilizando modelos reproducibles y ejecuciones dinámicas del robot.
+
+## 🗺️ Roadmap
+
+Automatización del flujo de trabajo completo:
+
+**Código ➡️ Análisis ➡️ Visualización**
+
+Todo el proceso garantiza que los resultados científicos sean reproducibles, verificables y siempre actualizados.
+
+## 📣 ¿Por qué es relevante?
+
+- Reduce tiempos y errores al actualizar los datos en línea  
+- Promueve buenas prácticas de ciencia abierta y reproducibilidad  
+- Cada proceso queda verificado conforme a las directrices establecidas  
+
+## 🌐 Tecnologías y Datos 
+
+Nuestro proyecto combina un stack simple y trazable con fuentes de datos verificables para construir un prototipo funcional en corto tiempo.
+
+::: {.columns}
+::: {.column width="50%"}
+### Stack tecnológico
+- Lenguajes: Python (Matplotlib, Pandas, NumPy)
+- Visualización / Sitio: Quarto + Marimo
+- CI/CD: GitHub Actions y Docker para portabilidad
+:::
+::: {.column width="50%"}
+### Fuentes de datos
+- Principal: CERN Open Data Portal — [datasets de 13 TeV del experimento ATLAS](https://opendata.cern.ch/record/12360)
+- Recurso base: [GitHub referencia](https://github.com/atlas-outreach-data-tools/notebooks-collection-opendata)
+:::
+:::
