@@ -1,0 +1,92 @@
+---
+execute:
+    output: true
+    eval: true
+    echo: false
+resources:
+    - plots/*
+---
+:::{.graphs-container}
+# Análisis físico automatizado, utilizando datos abiertos del experimento ATLAS (CERN) - D
+
+```{python}
+from pathlib import Path
+import os
+
+# Buscar la carpeta 'plots' en rutas relativas comunes (desde el directorio de renderizado)
+candidates = [
+    Path("plots"),
+    Path("..") / "plots",
+    Path("..") / ".." / "plots",
+    Path("..") / ".." / ".." / "plots",
+]
+plots_dir = None
+for p in candidates:
+    if p.exists() and p.is_dir():
+        plots_dir = p.resolve()
+        break
+
+if plots_dir is None:
+    print('No se encontró la carpeta "plots" en rutas relativas esperadas.')
+else:
+    htmls = sorted(plots_dir.glob("plotly_higgs_data_D*.html"))
+    if not htmls:
+        print('No se encontraron archivos .html en la carpeta "plots".')
+    else:
+        from IPython.display import HTML, display
+
+        cwd = Path(os.getcwd())
+
+        grid_style = (
+            "display:grid;"
+            "grid-template-columns:repeat(auto-fit,minmax(1200px,1fr));"
+            "gap:16px;align-items:start;"
+        )
+
+        html_parts = [f'<div style="{grid_style}">']
+        for h in htmls:
+            # Try to compute a relative path from the renderer cwd. If that
+            # doesn't point to an existing file, fall back to the logical web
+            # path inside the page ("plots/<name>") which is the most common
+            # layout for Quarto/website builds.
+            try:
+                rel = os.path.relpath(h, start=cwd).replace("\\", "/")
+            except Exception:
+                rel = str(h)
+
+            # If the computed rel doesn't exist from the renderer cwd, use a
+            # path relative to the document (served site) which is usually
+            # 'plots/<filename>'. This helps when Quarto's render cwd differs
+            # from the document location.
+            web_rel = f"plots/{h.name}"
+            try:
+                if not Path(rel).exists() and Path(web_rel).exists():
+                    rel = web_rel
+            except Exception:
+                # if Path.exists raises for some reason, prefer web_rel
+                rel = web_rel
+
+            html_parts.append(
+                '<div style="box-sizing:border-box;padding:6px;background:#fafafa;border:1px solid #eee;border-radius:6px;text-align:center;">'
+            )
+            # Link to open the full HTML in a new tab
+            html_parts.append(
+                f'  <a href="{rel}" target="_blank" style="display:block;margin-bottom:8px;color:inherit;text-decoration:none;">'
+            )
+            html_parts.append(
+                f'    <div style="font-weight:600;margin-bottom:6px;">{h.name}</div>'
+            )
+            html_parts.append("  </a>")
+
+            # Embed a live preview using iframe. Many plotly/interactive HTMLs work inside iframes.
+            html_parts.append(
+                f'  <iframe src="{rel}" style="width:100%;height:420px;border:0;border-radius:6px;" loading="lazy"></iframe>'
+            )
+
+            html_parts.append("</div>")
+
+        html_parts.append("</div>")
+        html = "\n".join(html_parts)
+        display(HTML(html))
+```
+:::

@@ -1,0 +1,9 @@
+---
+title: "Charts"
+listing:
+  contents: "index.qmd"
+  type: grid
+# page-layout: full
+---
+
+About this site

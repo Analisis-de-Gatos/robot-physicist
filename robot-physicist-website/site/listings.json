@@ -2,9 +2,19 @@
   {
     "listing": "/charts/index.html",
     "items": [
-      "/charts/marimotest/index.html",
+      "/charts/marimotest copy 2/index.html",
       "/charts/marimotest copy/index.html",
-      "/charts/marimotest2/index.html"
+      "/charts/marimotest/index.html"
+    ]
+  },
+  {
+    "listing": "/histogramas/index.html",
+    "items": [
+      "/histogramas/atlas-dataset-A/index.html",
+      "/histogramas/atlas-dataset-B/index.html",
+      "/histogramas/atlas-dataset-C/index.html",
+      "/histogramas/atlas-dataset-D/index.html",
+      "/histogramas/atlas-test-analysis/index.html"
     ]
   }
 ]

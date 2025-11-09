@@ -5,7 +5,7 @@ on:
     inputs:
       data_files:
         description: "Comma-separated list of ROOT file URLs or paths"
-        default: "http://www.universidad.ch/ATLAS/outreach/opendata-2020/data/data_B.GamGam.root"
+        default: "http://www.universidad.ch/ATLAS/outreach/opendata-2020/data/data_A.GamGam.root, http://www.universidad.ch/ATLAS/outreach/opendata-2020/data/data_B.GamGam.root, http://www.universidad.ch/ATLAS/outreach/opendata-2020/data/data_C.GamGam.root, http://www.universidad.ch/ATLAS/outreach/opendata-2020/data/data_D.GamGam.root"
         required: true
       cut_values:
         description: "Comma-separated cut values in MeV (e.g., 10000,15000)"
@@ -99,7 +99,7 @@ jobs:
 
       - name: Run Plotly Higgs Analysis
         run: |
-          python plotly_higgs_analysis.py \
+          python data_analysis/plotly_higgs_analysis.py \
             "${{ matrix.config.file }}" \
             --cut-value "${{ matrix.config.cut }}" \
             --min-energy "${{ matrix.config.min_e }}" \
@@ -109,8 +109,8 @@ jobs:
 
       - name: Copy generated plots into Quarto site
         run: |
-          mkdir -p robot-physicist-website/charts/marimotest/plots
-          cp plots/plotly_*.html robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+          mkdir -p robot-physicist-website/histogramas/plots
+          cp plots/plotly_*.html robot-physicist-website/histogramas/plots/ 2>/dev/null || true
 
       - name: Commit and Push Plotly HTML
         if: always()
@@ -121,7 +121,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
           if ls plots/plotly_*.html 1> /dev/null 2>&1; then
-            git add plots/ robot-physicist-website/charts/marimotest/plots/
+            git add plots/ robot-physicist-website/histogramas/plots/
             git diff --cached --exit-code || git commit -m "Add Plotly analysis: cut=${{ matrix.config.cut }}, E=[${{ matrix.config.min_e }}-${{ matrix.config.max_e }}]" --allow-empty
             git pull --rebase origin main || git pull origin main
             git push origin HEAD:main
@@ -310,8 +310,8 @@ jobs:
 
       - name: Copy index to Quarto site
         run: |
-          mkdir -p robot-physicist-website/charts/marimotest/plots
-          cp plots/index.html robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+          mkdir -p robot-physicist-website/histogramas/plots
+          cp plots/index.html robot-physicist-website/histogramas/plots/ 2>/dev/null || true
 
       - name: Commit and Push Index
         env:
@@ -319,7 +319,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add plots/index.html robot-physicist-website/charts/marimotest/plots/index.html || echo "No index file"
+          git add plots/index.html robot-physicist-website/histogramas/plots/index.html || echo "No index file"
           git diff --cached --exit-code || git commit -m "Add/Update plot index page" --allow-empty
           git pull --rebase origin main || git pull origin main
           git push origin HEAD:main
