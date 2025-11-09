@@ -1,0 +1,129 @@
+/* Fuente moderna y clara */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f8ff;
+    color: #2e2e2e;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    background-image: url("fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Capa blanca semitransparente sobre fondo */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: -1;
+}
+
+/* Navbar elegante y pastel */
+.navbar {
+    background-color: #d6e6f2;
+    border-bottom: 2px solid #a3c4dc;
+    padding: 0.75rem 1.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.navbar a {
+    color: #1e3a5f !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar a:hover {
+    background-color: #cce4ff;
+    color: #2563eb !important;
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+
+/* Hero banner con estilo suave */
+.hero {
+    background: linear-gradient(to right, #d6e6f2, #f0f8ff);
+    color: #1e3a5f;
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Títulos vibrantes y jerárquicos */
+.hero h1 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #2563eb;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #3b82f6;
+    margin-top: 0;
+}
+
+/* Animación de entrada */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Callouts suaves y legibles */
+.callout-note {
+    background-color: #e0f2fe;
+    border-left: 4px solid #60a5fa;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Botones pastel con hover animado */
+button {
+    background-color: #60a5fa;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #3b82f6;
+    transform: scale(1.05);
+}
+
+/* Secciones con fondo blanco suave */
+section,
+.callout-note,
+.hero {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

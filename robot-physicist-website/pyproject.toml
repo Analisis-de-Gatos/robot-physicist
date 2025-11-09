@@ -1,0 +1,16 @@
+[project]
+name = "robot-physicist-website"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp>=3.13.2",
+    "atlasopenmagic>=1.6.1",
+    "awkward>=2.8.10",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.7",
+    "numpy>=2.3.4",
+    "requests>=2.32.5",
+    "uproot>=5.6.8",
+    "vector>=1.7.0",
+]

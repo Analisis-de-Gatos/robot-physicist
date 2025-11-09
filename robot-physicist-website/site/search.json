@@ -1,0 +1,114 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Sobre el proyecto",
+    "section": "",
+    "text": "Physics on Autopilot — Ciencia Transparente y Automatizada\nEste sitio documenta el desarrollo de un pipeline CI/CD para el análisis físico automatizado, utilizando datos abiertos del experimento ATLAS (CERN).\nCada git push a la rama principal desencadena una GitHub Action que ejecuta el siguiente flujo:\n\n🐍 Configura el entorno Python y Quarto\n\n📦 Instala las dependencias científicas (uproot, awkward-array, hist)\n\n🧪 Ejecuta el análisis físico con Python y Marimo\n\n🖥️ Compila el sitio web con Quarto\n\n🚀 Publica automáticamente en GitHub Pages\n\n\n\n\nLograr la máxima reproducibilidad y transparencia científica mediante herramientas modernas, abiertas y automatizadas.\nEste enfoque permite que cualquier persona pueda:\n\nVer los resultados en tiempo real\nReproducir el análisis completo\nContribuir al desarrollo del robot físico\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaracterística\nHerramientas\nPropósito en el Reto\n\n\n\n\nAnálisis Físico\nPython, uproot, awkward-array, hist\nLectura eficiente de ROOT y cálculo de masas invariantes\n\n\nInteractividad\nMarimo\nCeldas reactivas y widgets para análisis dinámico\n\n\nDocumentación\nQuarto\nSitio web profesional con contenido dinámico\n\n\nAutomatización CI/CD\nGitHub Actions\nOrquestación del flujo completo y despliegue continuo\n\n\n\n\n\n\n\nEste proyecto es desarrollado por estudiantes apasionados por la ciencia abierta, la automatización y el diseño reproducible:\n\nJuan Carlos Mendoza Sánchez — Estudiante de Física\n\nJuan Daniel Mendoza Sánchez — Estudiante de Ingeniería en Sistemas\n\nEugenia Ramírez — Estudiante de Ingeniería en Sistemas\n\nAntonia Morales — Estudiante de Física\n\nÁngel Contreras — Estudiante de Matemática"
+  },
+  {
+    "objectID": "about.html#objetivo-del-proyecto",
+    "href": "about.html#objetivo-del-proyecto",
+    "title": "Sobre el proyecto",
+    "section": "",
+    "text": "Lograr la máxima reproducibilidad y transparencia científica mediante herramientas modernas, abiertas y automatizadas.\nEste enfoque permite que cualquier persona pueda:\n\nVer los resultados en tiempo real\nReproducir el análisis completo\nContribuir al desarrollo del robot físico"
+  },
+  {
+    "objectID": "about.html#tecnologías-clave",
+    "href": "about.html#tecnologías-clave",
+    "title": "Sobre el proyecto",
+    "section": "",
+    "text": "Característica\nHerramientas\nPropósito en el Reto\n\n\n\n\nAnálisis Físico\nPython, uproot, awkward-array, hist\nLectura eficiente de ROOT y cálculo de masas invariantes\n\n\nInteractividad\nMarimo\nCeldas reactivas y widgets para análisis dinámico\n\n\nDocumentación\nQuarto\nSitio web profesional con contenido dinámico\n\n\nAutomatización CI/CD\nGitHub Actions\nOrquestación del flujo completo y despliegue continuo"
+  },
+  {
+    "objectID": "about.html#nuestro-equipo",
+    "href": "about.html#nuestro-equipo",
+    "title": "Sobre el proyecto",
+    "section": "",
+    "text": "Este proyecto es desarrollado por estudiantes apasionados por la ciencia abierta, la automatización y el diseño reproducible:\n\nJuan Carlos Mendoza Sánchez — Estudiante de Física\n\nJuan Daniel Mendoza Sánchez — Estudiante de Ingeniería en Sistemas\n\nEugenia Ramírez — Estudiante de Ingeniería en Sistemas\n\nAntonia Morales — Estudiante de Física\n\nÁngel Contreras — Estudiante de Matemática"
+  },
+  {
+    "objectID": "charts/marimotest copy/index.html",
+    "href": "charts/marimotest copy/index.html",
+    "title": "Histograma Interactivo con API y Plotly",
+    "section": "",
+    "text": "Este ejemplo usa la API de JSONPlaceholder para analizar la distribución de longitudes de títulos de posts con Marimo.\n\n    \n    \n    \n    import%20marimo%20as%20mo\n\n\n    \n    \n    \n    %23%20Control%20deslizante%20para%20n%C3%BAmero%20de%20bins%0Ajust_a_slider%20%3D%20mo.ui.slider(5%2C%2050%2C%20value%3D20%2C%20step%3D5%2C%20label%3D%22N%C3%BAmero%20de%20bins%3A%22)%0Ajust_a_slider\n\n\n    \n    \n    \n    import%20requests%0Aimport%20pandas%20as%20pd%0Aimport%20plotly.express%20as%20px%0Aimport%20plotly.graph_objects%20as%20go\n\n\n    \n    \n    \n    %23%20Obtener%20posts%20de%20la%20API%0Aurl%20%3D%20%22https%3A%2F%2Fjsonplaceholder.typicode.com%2Fposts%22%0Aresponse%20%3D%20requests.get(url)%0Aposts%20%3D%20response.json()%0A%0A%23%20Crear%20DataFrame%0Adf%20%3D%20pd.DataFrame(posts)%0A%0A%23%20Calcular%20longitud%20de%20t%C3%ADtulos%0Adf%5B'longitud_titulo'%5D%20%3D%20df%5B'title'%5D.str.len()%0A%0Amo.md(f%22**Total%20de%20posts%20obtenidos%3A**%20%7Blen(df)%7D%22)\n\n\n    \n    \n    \n    %23%20Mostrar%20tabla%20con%20primeros%20registros%0Amo.ui.table(df%5B%5B'userId'%2C%20'title'%2C%20'longitud_titulo'%5D%5D.head(10))"
+  },
+  {
+    "objectID": "charts/marimotest copy/index.html#análisis-de-posts-con-api",
+    "href": "charts/marimotest copy/index.html#análisis-de-posts-con-api",
+    "title": "Histograma Interactivo con API y Plotly",
+    "section": "",
+    "text": "Este ejemplo usa la API de JSONPlaceholder para analizar la distribución de longitudes de títulos de posts con Marimo.\n\n    \n    \n    \n    import%20marimo%20as%20mo\n\n\n    \n    \n    \n    %23%20Control%20deslizante%20para%20n%C3%BAmero%20de%20bins%0Ajust_a_slider%20%3D%20mo.ui.slider(5%2C%2050%2C%20value%3D20%2C%20step%3D5%2C%20label%3D%22N%C3%BAmero%20de%20bins%3A%22)%0Ajust_a_slider\n\n\n    \n    \n    \n    import%20requests%0Aimport%20pandas%20as%20pd%0Aimport%20plotly.express%20as%20px%0Aimport%20plotly.graph_objects%20as%20go\n\n\n    \n    \n    \n    %23%20Obtener%20posts%20de%20la%20API%0Aurl%20%3D%20%22https%3A%2F%2Fjsonplaceholder.typicode.com%2Fposts%22%0Aresponse%20%3D%20requests.get(url)%0Aposts%20%3D%20response.json()%0A%0A%23%20Crear%20DataFrame%0Adf%20%3D%20pd.DataFrame(posts)%0A%0A%23%20Calcular%20longitud%20de%20t%C3%ADtulos%0Adf%5B'longitud_titulo'%5D%20%3D%20df%5B'title'%5D.str.len()%0A%0Amo.md(f%22**Total%20de%20posts%20obtenidos%3A**%20%7Blen(df)%7D%22)\n\n\n    \n    \n    \n    %23%20Mostrar%20tabla%20con%20primeros%20registros%0Amo.ui.table(df%5B%5B'userId'%2C%20'title'%2C%20'longitud_titulo'%5D%5D.head(10))"
+  },
+  {
+    "objectID": "charts/marimotest copy/index.html#histograma-de-longitud-de-títulos",
+    "href": "charts/marimotest copy/index.html#histograma-de-longitud-de-títulos",
+    "title": "Histograma Interactivo con API y Plotly",
+    "section": "Histograma de Longitud de Títulos",
+    "text": "Histograma de Longitud de Títulos\n\n    \n    \n    \n    fig%20%3D%20px.histogram(%0A%20%20%20%20df%2C%20%0A%20%20%20%20x%3D'longitud_titulo'%2C%0A%20%20%20%20nbins%3D20%2C%0A%20%20%20%20title%3D'Distribuci%C3%B3n%20de%20Longitud%20de%20T%C3%ADtulos%20de%20Posts'%2C%0A%20%20%20%20labels%3D%7B'longitud_titulo'%3A%20'Longitud%20del%20T%C3%ADtulo%20(caracteres)'%2C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20'count'%3A%20'Frecuencia'%7D%2C%0A%20%20%20%20color_discrete_sequence%3D%5B'%23636EFA'%5D%0A)%0A%0Afig.update_layout(%0A%20%20%20%20xaxis_title%3D'Longitud%20del%20T%C3%ADtulo%20(caracteres)'%2C%0A%20%20%20%20yaxis_title%3D'N%C3%BAmero%20de%20Posts'%2C%0A%20%20%20%20hovermode%3D'x%20unified'%2C%0A%20%20%20%20showlegend%3DFalse%0A)%0A%0Amo.ui.plotly(fig)"
+  },
+  {
+    "objectID": "charts/marimotest copy/index.html#selector-interactivo-de-bins",
+    "href": "charts/marimotest copy/index.html#selector-interactivo-de-bins",
+    "title": "Histograma Interactivo con API y Plotly",
+    "section": "Selector Interactivo de Bins",
+    "text": "Selector Interactivo de Bins\n\n    \n    \n    \n    %23%20Control%20deslizante%20para%20n%C3%BAmero%20de%20bins%0Abins_slider%20%3D%20mo.ui.slider(%0A%20%20%20%20start%3D5%2C%20%0A%20%20%20%20stop%3D50%2C%20%0A%20%20%20%20value%3D20%2C%20%0A%20%20%20%20step%3D5%2C%0A%20%20%20%20label%3D%22N%C3%BAmero%20de%20bins%3A%22%0A)%0Abins_slider\n\n\n    \n    \n    \n    %23%20Histograma%20que%20responde%20al%20slider%0Afig_interactive%20%3D%20px.histogram(%0A%20%20%20%20df%2C%20%0A%20%20%20%20x%3D'longitud_titulo'%2C%0A%20%20%20%20nbins%3Dbins_slider.value%2C%0A%20%20%20%20title%3Df'Distribuci%C3%B3n%20con%20%7Bbins_slider.value%7D%20bins'%2C%0A%20%20%20%20labels%3D%7B'longitud_titulo'%3A%20'Longitud%20del%20T%C3%ADtulo'%2C%20%0A%20%20%20%20%20%20%20%20%20%20%20%20'count'%3A%20'Frecuencia'%7D%2C%0A%20%20%20%20color_discrete_sequence%3D%5B'%23FF6B6B'%5D%0A)%0A%0Afig_interactive.update_layout(%0A%20%20%20%20xaxis_title%3D'Longitud%20del%20T%C3%ADtulo%20(caracteres)'%2C%0A%20%20%20%20yaxis_title%3D'N%C3%BAmero%20de%20Posts'%2C%0A%20%20%20%20hovermode%3D'x%20unified'%0A)%0A%0Amo.ui.plotly(fig_interactive)"
+  },
+  {
+    "objectID": "charts/marimotest copy/index.html#histograma-por-usuario",
+    "href": "charts/marimotest copy/index.html#histograma-por-usuario",
+    "title": "Histograma Interactivo con API y Plotly",
+    "section": "Histograma por Usuario",
+    "text": "Histograma por Usuario\n\n    \n    \n    \n    posts_por_usuario%20%3D%20df%5B'userId'%5D.value_counts().sort_index()%0A%0Afig2%20%3D%20go.Figure(data%3D%5B%0A%20%20%20%20go.Bar(%0A%20%20%20%20%20%20%20%20x%3Dposts_por_usuario.index%2C%0A%20%20%20%20%20%20%20%20y%3Dposts_por_usuario.values%2C%0A%20%20%20%20%20%20%20%20marker_color%3D'lightseagreen'%2C%0A%20%20%20%20%20%20%20%20hovertemplate%3D'Usuario%3A%20%25%7Bx%7D%3Cbr%3EPosts%3A%20%25%7By%7D%3Cextra%3E%3C%2Fextra%3E'%0A%20%20%20%20)%0A%5D)%0A%0Afig2.update_layout(%0A%20%20%20%20title%3D'N%C3%BAmero%20de%20Posts%20por%20Usuario'%2C%0A%20%20%20%20xaxis_title%3D'ID%20de%20Usuario'%2C%0A%20%20%20%20yaxis_title%3D'Cantidad%20de%20Posts'%2C%0A%20%20%20%20xaxis%3Ddict(tickmode%3D'linear')%0A)%0A%0Amo.ui.plotly(fig2)"
+  },
+  {
+    "objectID": "charts/marimotest copy/index.html#estadísticas-descriptivas",
+    "href": "charts/marimotest copy/index.html#estadísticas-descriptivas",
+    "title": "Histograma Interactivo con API y Plotly",
+    "section": "Estadísticas Descriptivas",
+    "text": "Estadísticas Descriptivas\n\n    \n    \n    \n    stats%20%3D%20df%5B'longitud_titulo'%5D.describe()%0A%0Amo.md(f%22%22%22%0A**Estad%C3%ADsticas%20de%20longitud%20de%20t%C3%ADtulos%3A**%0A%0A-%20Media%3A%20%7Bstats%5B'mean'%5D%3A.2f%7D%20caracteres%0A-%20Mediana%3A%20%7Bstats%5B'50%25'%5D%3A.2f%7D%20caracteres%0A-%20Desviaci%C3%B3n%20est%C3%A1ndar%3A%20%7Bstats%5B'std'%5D%3A.2f%7D%0A-%20M%C3%ADnimo%3A%20%7Bstats%5B'min'%5D%3A.0f%7D%20caracteres%0A-%20M%C3%A1ximo%3A%20%7Bstats%5B'max'%5D%3A.0f%7D%20caracteres%0A-%20Moda%3A%20%7Bdf%5B'longitud_titulo'%5D.mode()%5B0%5D%7D%20caracteres%0A%22%22%22)"
+  },
+  {
+    "objectID": "charts/marimotest copy/index.html#conclusiones",
+    "href": "charts/marimotest copy/index.html#conclusiones",
+    "title": "Histograma Interactivo con API y Plotly",
+    "section": "Conclusiones",
+    "text": "Conclusiones\nLos histogramas muestran que la mayoría de los títulos tienen entre 40 y 70 caracteres. Cada usuario tiene exactamente 10 posts en la base de datos. Con Marimo podemos ajustar dinámicamente el número de bins para explorar mejor la distribución."
+  },
+  {
+    "objectID": "charts/marimotest/index.html",
+    "href": "charts/marimotest/index.html",
+    "title": "Just another Quarto project",
+    "section": "",
+    "text": "Just another Quarto project\n\n\n\n\n  \n    \n  \n  histogram_data_A.GamGam_cut10000.0_E105.0-160.0.png"
+  },
+  {
+    "objectID": "charts/index.html",
+    "href": "charts/index.html",
+    "title": "Charts",
+    "section": "",
+    "text": "About this site\n\n\n\n\n\n\n\n\n\n\n\n\nHistograma Interactivo con API y Plotly\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJust another Quarto project\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "ROBOT FISICO",
+    "section": "",
+    "text": "Un robot físico que convierte datos en descubrimientos automáticamente…"
+  },
+  {
+    "objectID": "index.html#qué-puedes-encontrar-aquí",
+    "href": "index.html#qué-puedes-encontrar-aquí",
+    "title": "ROBOT FISICO",
+    "section": "🔍 ¿Qué puedes encontrar aquí?",
+    "text": "🔍 ¿Qué puedes encontrar aquí?\n\n📊 Análisis físico en tiempo real\n\n🧪 Ejecuciones dinámicas\n\n🐾 Métricas del equipo y del robot\n\n📁 Código abierto y documentación clara"
+  },
+  {
+    "objectID": "index.html#últimos-resultados",
+    "href": "index.html#últimos-resultados",
+    "title": "ROBOT FISICO",
+    "section": "🚀 Últimos resultados",
+    "text": "🚀 Últimos resultados\nLos resultados Xd"
+  }
+]

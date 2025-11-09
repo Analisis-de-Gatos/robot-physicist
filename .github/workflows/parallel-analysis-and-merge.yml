@@ -71,6 +71,12 @@ jobs:
               --min-energy "${{ github.event.inputs.min_energy }}" \
               --max-energy "${{ github.event.inputs.max_energy }}"
 
+      - name: Copy generated plots into Quarto site
+        run: |
+          mkdir -p robot-physicist-website/charts/marimotest/plots
+          cp plots/histogram_*.png robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+          cp plots/histogram_*.root robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+
       - name: Commit and Push Histogram Plot
         if: always()
         env:
@@ -79,8 +85,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
-          if ls plots/histogram_*.png plots/histogram_*.root 1> /dev/null 2>&1; then
-            git add plots/histogram_*.png plots/histogram_*.root
+          if ls plots/histogram_*.png plots/histogram_*.root 1> /dev/null 2>&1 || ls robot-physicist-website/charts/marimotest/plots/histogram_*.png robot-physicist-website/charts/marimotest/plots/histogram_*.root 1> /dev/null 2>&1; then
+            git add plots/histogram_*.png plots/histogram_*.root robot-physicist-website/charts/marimotest/plots/histogram_*.png robot-physicist-website/charts/marimotest/plots/histogram_*.root
             git diff --cached --exit-code || git commit -m "Add updated histogram plot" --allow-empty
           else
             echo "No plot generated"
@@ -118,6 +124,11 @@ jobs:
             cd /workspace/plots
             hadd -f "/workspace/plots/merged_histograms_${{ needs.setup.outputs.data_file_name }}.root" /workspace/plots/histogram_*.root
 
+      - name: Copy merged ROOT into Quarto site
+        run: |
+          mkdir -p robot-physicist-website/charts/marimotest/plots
+          cp "/workspace/plots/merged_histograms_${{ needs.setup.outputs.data_file_name }}.root" robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+
       - name: Commit and Push Merged ROOT File
         if: always()
         env:
@@ -125,7 +136,7 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add "plots/merged_histograms_${{ needs.setup.outputs.data_file_name }}.root" || echo "No merged ROOT file generated"
+          git add "plots/merged_histograms_${{ needs.setup.outputs.data_file_name }}.root" robot-physicist-website/charts/marimotest/plots/merged_histograms_${{ needs.setup.outputs.data_file_name }}.root || echo "No merged ROOT file generated"
           git diff --cached --exit-code || git commit -m "Add merged ROOT file" --allow-empty
           git fetch origin main
           git rebase origin/main
@@ -148,13 +159,18 @@ jobs:
             cd /workspace
             python3 root-to-png.py "plots/merged_histograms_${{ needs.merge-root-files.outputs.data_file_name }}.root"
 
+      - name: Copy merged PNG into Quarto site
+        run: |
+          mkdir -p robot-physicist-website/charts/marimotest/plots
+          cp "plots/merged_histograms_${{ needs.merge-root-files.outputs.data_file_name }}.png" robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+
       - name: Commit and Push Merged PNG File
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add "plots/merged_histograms_${{ needs.merge-root-files.outputs.data_file_name }}.png" || echo "No merged PNG file generated"
+          git add "plots/merged_histograms_${{ needs.merge-root-files.outputs.data_file_name }}.png" robot-physicist-website/charts/marimotest/plots/merged_histograms_${{ needs.merge-root-files.outputs.data_file_name }}.png || echo "No merged PNG file generated"
           git diff --cached --exit-code || git commit -m "Add merged histogram as PNG" --allow-empty
 
           # Fetch latest changes, rebase, and push
