@@ -131,7 +131,22 @@ Puedes contribuirlos en el workspace de análisis o la web (`robot-physicist-web
 - **Plotly:** [https://plotly.com/python/](https://plotly.com/python/)
 - **uv (gestión de dependencias):** [https://github.com/astral-sh/uv](https://github.com/astral-sh/uv)
 
+---
+
+## 📝 Licencia
+
+Este proyecto —incluyendo el video de YouTube y todos los materiales audiovisuales— está protegido por:
+
 MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
+
+🌐 [![Licencia: CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
+
+🔓 **Creative Commons Attribution 4.0 Internacional (CC BY 4.0)**
+
+Puedes compartir, copiar, remezclar, adaptar y transformar el contenido para cualquier propósito, incluso comercial, siempre que otorgues crédito a los autores.  
+Más información 👉 [https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/)
+
+✨ ¡La ciencia abierta es para todos!
 
 ---
 
