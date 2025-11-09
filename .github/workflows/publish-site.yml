@@ -1,5 +1,4 @@
-name: Quarto Publish (Físico Remoto CI/CD)
-
+name: Quarto Publish (Físico Robot CI/CD)
 on:
   push:
     branches: ["main"]
@@ -8,7 +7,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     permissions:
       contents: write
       pages: write
@@ -24,35 +22,41 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+          cache: "pip"
 
-      # Paso 3: Instalar Quarto (sin python-version)
+      # Paso 3: Instalar Quarto
       - name: Instalar Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.4.550
 
-      # Paso 4: Instalar dependencias
-      - name: Instalar uv ejecutable Python
+      # Paso 4: Instalar uv
+      - name: Instalar uv
         run: pip install uv
 
-      - name: Instalar uv binario externo
-        run: curl -Ls https://astral.sh/uv/install.sh | bash
+      # Paso 5: Configurar entorno virtual y dependencias
+      - name: Crear entorno virtual con uv
+        run: uv venv
 
-      - name: Install dependencies with uv
+      - name: Instalar dependencias con uv
         run: |
+          source .venv/bin/activate
           uv pip install jupyter
 
       # Paso 6: Renderizar sitio Quarto
       - name: Renderizar sitio Quarto
-        run: cd robot-physicist-website && quarto render
+        run: |
+          source .venv/bin/activate
+          cd robot-physicist-website && quarto render
 
       # Paso 7: Validar generación de HTML
       - name: Validar generación de HTML
         run: |
-          if ls robot-physicist-website/site/*.html; then
-            echo "Archivos HTML generados correctamente."
+          if ls robot-physicist-website/site/*.html 1> /dev/null 2>&1; then
+            echo "✅ Archivos HTML generados correctamente."
+            ls -lh robot-physicist-website/site/*.html
           else
-            echo "ERROR: No se generaron los archivos HTML." && exit 1
+            echo "❌ ERROR: No se generaron los archivos HTML." && exit 1
           fi
 
       # Paso 8: Subir artefactos a GitHub Pages
