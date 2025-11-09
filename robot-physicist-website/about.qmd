@@ -29,6 +29,23 @@ Este enfoque permite que cualquier persona pueda:
 
 ---
 
+## 🔬 Descubriendo el Bosón de Higgs
+
+Las gráficas generadas corresponden al análisis de datos reales capturados por el experimento ATLAS en el Gran Colisionador de Hadrones (LHC).  
+El objetivo es identificar la huella del Bosón de Higgs mediante el estudio de la **masa invariante de difotones**.
+
+- Fondo (ruido): Representa eventos naturales no relacionados con el Higgs (curva verde).
+- Señal (Higgs): Un pequeño pico sobresaliente sobre el fondo (curva azul) indica su posible detección.
+- Ajuste total (curva roja): La suma de Gauss + Exponencial, que permite estimar la masa más probable del Bosón de Higgs.
+
+El análisis matemático utiliza un modelo de ajuste compuesto por:
+- Campana de Gauss: modela la señal del Higgs.
+- Función Exponencial: representa el fondo.
+
+El ajuste ayuda a determinar la masa del Bosón de Higgs y la cantidad de eventos que corresponden efectivamente a su producción.
+
+---
+
 ## ⚙️ Tecnologías Clave
 
 | Característica       | Herramientas                               | Propósito en el Reto                                      |
