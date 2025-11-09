@@ -68,6 +68,23 @@ Con cada `git push` a `main`, se ejecuta todo el proceso: configuración, análi
 
 ---
 
+## 🤖 Automatización Total vía GitHub Actions
+
+Toda la integración y despliegue continuo está contenida en **un solo workflow** `.github/workflows/publish-site.yml`, que ejecuta todos los pasos necesarios de análisis y publicación del sitio web automáticamente o bajo demanda:
+
+- **Automático:**  
+  Cada vez que se hace `push` a la rama `main`, el pipeline se ejecuta sin intervención del usuario.
+- **Manual, desde interfaz:**  
+  Puedes forzar la ejecución del pipeline y el despliegue usando el botón “Run workflow” en la pestaña **Actions** → "Quarto Publish (Físico Robot CI/CD)", sin editar ni ver el código del workflow.
+
+**No necesitas modificar ningún archivo de GitHub Actions.**  
+Sólo haz cambios en tu código o documentación; la automatización CI/CD se encarga del resto.
+
+> Si haces un fork, podrás lanzar el proceso tú mismo desde la pestaña **Actions** en tu repositorio. 
+> Los permisos requeridos son los de cualquier flujo GitHub Pages estándar.
+
+---
+
 ## 💻 Desarrollo Local
 
 ### 1. Requisitos
@@ -107,18 +124,6 @@ Puedes contribuirlos en el workspace de análisis o la web (`robot-physicist-web
 
 ---
 
-## 🤖 CI/CD Automatizado
-
-La carpeta `.github/workflows/` contiene la automatización completa del pipeline.  
-Ejecuta: instalación de dependencias, scripts de análisis y despliegue automático en cada push relevante.
-
-- `publish-site.yml` construye y publica el sitio web (Quarto).
-- `workflow-plotly-higgs-analysis.yml` ejecuta el script de análisis e integración de resultados.
-
-Así, el sitio web refleja siempre el **resultado más reciente y reproducible** del trabajo científico.
-
----
-
 ## 📚 Recursos
 
 - **CERN Open Data:** Datasets de 13 TeV del experimento ATLAS [https://opendata.cern.ch/record/12360].
@@ -142,6 +147,3 @@ MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
 ---
 
 2025.
-[8](https://www.makeareadme.com)
-[9](https://github.com/matiassingers/awesome-readme)
-[10](https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/6062626/f56bffbe-2a4a-461d-af87-ef071c0665ae/README.md)
