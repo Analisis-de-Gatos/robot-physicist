@@ -36,28 +36,72 @@ jobs:
       - name: Prepare matrix configuration
         id: prepare_matrix
         run: |
-          # Convertir las listas separadas por comas en arrays
-          IFS=',' read -ra FILES <<< "${{ github.event.inputs.data_files }}"
-          IFS=',' read -ra CUTS <<< "${{ github.event.inputs.cut_values }}"
-          IFS=',' read -ra MIN_E <<< "${{ github.event.inputs.min_energies }}"
-          IFS=',' read -ra MAX_E <<< "${{ github.event.inputs.max_energies }}"
+          # Función para limpiar espacios en blanco
+          trim() {
+            echo "$1" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+          }
+
+          # Convertir las listas separadas por comas en arrays (limpiando espacios)
+          IFS=',' read -ra FILES_RAW <<< "${{ github.event.inputs.data_files }}"
+          IFS=',' read -ra CUTS_RAW <<< "${{ github.event.inputs.cut_values }}"
+          IFS=',' read -ra MIN_E_RAW <<< "${{ github.event.inputs.min_energies }}"
+          IFS=',' read -ra MAX_E_RAW <<< "${{ github.event.inputs.max_energies }}"
+
+          # Limpiar espacios en blanco de cada elemento
+          FILES=()
+          for f in "${FILES_RAW[@]}"; do
+            FILES+=("$(trim "$f")")
+          done
+
+          CUTS=()
+          for c in "${CUTS_RAW[@]}"; do
+            CUTS+=("$(trim "$c")")
+          done
+
+          MIN_E=()
+          for m in "${MIN_E_RAW[@]}"; do
+            MIN_E+=("$(trim "$m")")
+          done
+
+          MAX_E=()
+          for m in "${MAX_E_RAW[@]}"; do
+            MAX_E+=("$(trim "$m")")
+          done
+
+          # Validar que tengamos al menos un elemento en cada array
+          if [ ${#FILES[@]} -eq 0 ] || [ ${#CUTS[@]} -eq 0 ] || [ ${#MIN_E[@]} -eq 0 ] || [ ${#MAX_E[@]} -eq 0 ]; then
+            echo "Error: All input arrays must have at least one element"
+            exit 1
+          fi
 
           # Crear combinaciones de parámetros
           matrix_json="["
           first=true
+          config_count=0
 
           for file in "${FILES[@]}"; do
             for cut in "${CUTS[@]}"; do
               for min_e in "${MIN_E[@]}"; do
                 for max_e in "${MAX_E[@]}"; do
-                  # Validar que min_energy < max_energy
-                  if (( $(echo "$min_e < $max_e" | bc -l) )); then
+                  # Validar que min_energy < max_energy usando bash arithmetic
+                  # Convertir a enteros multiplicando por 10 para manejar decimales
+                  min_e_int=$(echo "$min_e" | awk '{printf "%.0f", $1 * 10}')
+                  max_e_int=$(echo "$max_e" | awk '{printf "%.0f", $1 * 10}')
+                  
+                  if [ "$min_e_int" -lt "$max_e_int" ]; then
                     if [ "$first" = true ]; then
                       first=false
                     else
                       matrix_json+=","
                     fi
-                    matrix_json+="{\"file\":\"$file\",\"cut\":\"$cut\",\"min_e\":\"$min_e\",\"max_e\":\"$max_e\"}"
+                    
+                    # Escapar comillas en el file path si las hubiera
+                    file_escaped=$(echo "$file" | sed 's/"/\\"/g')
+                    
+                    matrix_json+="{\"file\":\"$file_escaped\",\"cut\":\"$cut\",\"min_e\":\"$min_e\",\"max_e\":\"$max_e\",\"id\":$config_count}"
+                    config_count=$((config_count + 1))
+                  else
+                    echo "Skipping invalid range: min_e=$min_e >= max_e=$max_e"
                   fi
                 done
               done
@@ -65,9 +109,16 @@ jobs:
           done
 
           matrix_json+="]"
+
+          # Validar que tengamos al menos una configuración válida
+          if [ "$config_count" -eq 0 ]; then
+            echo "Error: No valid configurations generated. Check that min_energies < max_energies"
+            exit 1
+          fi
+
           echo "matrix_config=$matrix_json" >> $GITHUB_OUTPUT
-          echo "Generated matrix configurations:"
-          echo "$matrix_json" | jq .
+          echo "Generated $config_count matrix configurations:"
+          echo "$matrix_json" | jq '.' || echo "$matrix_json"
 
   process-file:
     needs: setup
@@ -76,6 +127,7 @@ jobs:
       contents: write
     strategy:
       fail-fast: false
+      max-parallel: 3 # Limitar paralelismo para evitar race conditions
       matrix:
         config: ${{ fromJSON(needs.setup.outputs.matrix_config) }}
 
@@ -121,10 +173,37 @@ jobs:
           git config --local user.name "GitHub Action"
 
           if ls plots/plotly_*.html 1> /dev/null 2>&1; then
+            # Pull primero para evitar conflictos
+            git pull --rebase origin main || true
+            
             git add plots/ robot-physicist-website/histogramas/plots/
-            git diff --cached --exit-code || git commit -m "Add Plotly analysis: cut=${{ matrix.config.cut }}, E=[${{ matrix.config.min_e }}-${{ matrix.config.max_e }}]" --allow-empty
-            git pull --rebase origin main || git pull origin main
-            git push origin HEAD:main
+            
+            # Solo hacer commit si hay cambios
+            if ! git diff --cached --quiet; then
+              git commit -m "Add Plotly analysis [id:${{ matrix.config.id }}]: cut=${{ matrix.config.cut }}, E=[${{ matrix.config.min_e }}-${{ matrix.config.max_e }}]"
+              
+              # Reintentar push hasta 5 veces si falla
+              max_attempts=5
+              attempt=1
+              while [ $attempt -le $max_attempts ]; do
+                echo "Push attempt $attempt of $max_attempts"
+                if git push origin HEAD:main; then
+                  echo "Push successful"
+                  break
+                else
+                  if [ $attempt -eq $max_attempts ]; then
+                    echo "Push failed after $max_attempts attempts"
+                    exit 1
+                  fi
+                  echo "Push failed, pulling and retrying..."
+                  sleep $((attempt * 2))  # Exponential backoff
+                  git pull --rebase origin main || true
+                  attempt=$((attempt + 1))
+                fi
+              done
+            else
+              echo "No changes to commit"
+            fi
           else
             echo "No plot generated"
           fi
@@ -145,6 +224,7 @@ jobs:
 
       - name: Create HTML index for plots
         run: |
+          mkdir -p plots
           cd plots
           cat > index.html << 'EOF'
           <!DOCTYPE html>
@@ -271,14 +351,14 @@ jobs:
               # Formato: plotly_higgs_DATASET_cutVALUE_EMIN-MAX.html
               filename=$(basename "$file" .html)
               
-              # Extraer dataset
-              dataset=$(echo "$filename" | sed -E 's/plotly_higgs_([^_]+)_cut.*/\1/')
+              # Extraer dataset (manejo más robusto)
+              dataset=$(echo "$filename" | sed -E 's/^plotly_higgs_([^_]+)_.*$/\1/' | sed 's/\.GamGam//')
               
               # Extraer cut value
-              cut=$(echo "$filename" | grep -oP 'cut\K[0-9]+' || echo "N/A")
+              cut=$(echo "$filename" | grep -oP 'cut\K[0-9]+' 2>/dev/null || echo "N/A")
               
               # Extraer rango de energía
-              energy_range=$(echo "$filename" | grep -oP 'E\K[0-9]+-[0-9]+' || echo "N/A")
+              energy_range=$(echo "$filename" | grep -oP 'E\K[0-9.]+-[0-9.]+' 2>/dev/null || echo "N/A")
               
               echo "                  <div class=\"plot-card\">" >> index.html
               echo "                      <h3>📊 $dataset</h3>" >> index.html
@@ -286,17 +366,17 @@ jobs:
               echo "                      <div class=\"metadata\">" >> index.html
               echo "                          <div class=\"metadata-item\"><span class=\"metadata-label\">Dataset:</span><span>$dataset</span></div>" >> index.html
               
-              if [ "$cut" != "N/A" ]; then
-                cut_gev=$(echo "scale=1; $cut / 1000" | bc)
+              if [ "$cut" != "N/A" ] && [ -n "$cut" ]; then
+                cut_gev=$(awk "BEGIN {printf \"%.1f\", $cut / 1000}")
                 echo "                          <div class=\"metadata-item\"><span class=\"metadata-label\">Cut (pT):</span><span>${cut_gev} GeV</span></div>" >> index.html
               fi
               
-              if [ "$energy_range" != "N/A" ]; then
+              if [ "$energy_range" != "N/A" ] && [ -n "$energy_range" ]; then
                 echo "                          <div class=\"metadata-item\"><span class=\"metadata-label\">Energy Range:</span><span>$energy_range GeV</span></div>" >> index.html
               fi
               
               echo "                      </div>" >> index.html
-              echo "                      <div class=\"timestamp\">Generado: $(date '+%Y-%m-%d %H:%M:%S')</div>" >> index.html
+              echo "                      <div class=\"timestamp\">Generado: $(date '+%Y-%m-%d %H:%M:%S UTC')</div>" >> index.html
               echo "                  </div>" >> index.html
             done
           fi
@@ -319,7 +399,29 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
           git add plots/index.html robot-physicist-website/histogramas/plots/index.html || echo "No index file"
-          git diff --cached --exit-code || git commit -m "Add/Update plot index page" --allow-empty
-          git pull --rebase origin main || git pull origin main
-          git push origin HEAD:main
+
+          if ! git diff --cached --quiet; then
+            git commit -m "Add/Update plot index page"
+            
+            # Reintentar push si falla
+            max_attempts=3
+            attempt=1
+            while [ $attempt -le $max_attempts ]; do
+              if git push origin HEAD:main; then
+                echo "Push successful"
+                break
+              else
+                if [ $attempt -eq $max_attempts ]; then
+                  echo "Push failed after $max_attempts attempts"
+                  exit 1
+                fi
+                sleep 2
+                git pull --rebase origin main || true
+                attempt=$((attempt + 1))
+              fi
+            done
+          else
+            echo "No changes to commit"
+          fi
