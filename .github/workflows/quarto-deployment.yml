@@ -1,0 +1,79 @@
+name: Quarto Publish (Físico Robot CI/CD) V2
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Process ATLAS Plotly Higgs Analysis"]
+    types:
+      - completed
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    # Solo ejecutar si el workflow anterior fue exitoso
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      # Paso 1: Checkout del código fuente
+      - name: Checkout del Repositorio
+        uses: actions/checkout@v4
+
+      # Paso 2: Instalar Python correctamente
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # Paso 3: Instalar Quarto
+      - name: Instalar Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.4.550
+
+      # Paso 4: Instalar uv
+      - name: Instalar uv
+        run: pip install uv
+
+      # Paso 5: Configurar entorno virtual y dependencias
+      - name: Crear entorno virtual con uv
+        run: uv venv
+
+      - name: Instalar dependencias con uv
+        run: |
+          source .venv/bin/activate
+          uv pip install jupyter
+
+      # Paso 6: Renderizar sitio Quarto
+      - name: Renderizar sitio Quarto
+        run: |
+          source .venv/bin/activate
+          cd robot-physicist-website && quarto render
+
+      # Paso 7: Validar generación de HTML
+      - name: Validar generación de HTML
+        run: |
+          if ls robot-physicist-website/site/*.html 1> /dev/null 2>&1; then
+            echo "✅ Archivos HTML generados correctamente."
+            ls -lh robot-physicist-website/site/*.html
+          else
+            echo "❌ ERROR: No se generaron los archivos HTML." && exit 1
+          fi
+
+      # Paso 8: Subir artefactos a GitHub Pages
+      - name: Subir artefactos a GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: robot-physicist-website/site
+
+      # Paso 9: Desplegar a GitHub Pages
+      - name: Desplegar a GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
