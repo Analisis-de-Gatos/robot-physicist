@@ -37,9 +37,7 @@ jobs:
 
       # Paso 5: Instalar extensión Quarto marimo
       - name: Instalar extensión Quarto marimo
-        run: |
-          quarto install
-          quarto add marimo-team/quarto-marimo
+        run: quarto add marimo-team/quarto-marimo
 
       # Paso 6: Renderizar sitio Quarto
       - name: Renderizar sitio Quarto
