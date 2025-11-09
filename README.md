@@ -26,7 +26,7 @@ Con cada `git push` a `main`, se desencadena todo el proceso: configuración, in
 | :------------------- | :------------------------------- | :------------------------------------------ |
 | Análisis Físico      | Python, uproot, awkward, hist     | Leer datos ROOT y análisis de física        |
 | Interactividad       | marimo                           | Widgets y celdas reactivas en la web        |
-| Documentación        | Quarto                           | Sitio web profesional/documentación         |
+| Sitio Web            | Quarto                           | Sitio web profesional/documentación         |
 | Automatización CI/CD | GitHub Actions                   | Orquestación de todo el flujo automatizado  |
 
 ---
