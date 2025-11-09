@@ -3,17 +3,19 @@ project:
   output-dir: site
 
 website:
-  title: "ROBOT FISICO"
+  title: "El FISICO ROBOT"
   navbar:
     right:
-    - href: index.qmd
-      text: 🏠 Inicio
-    - href: about.qmd
-      text: 📖 Acerca de
-    - href: histogramas/index.qmd
-      text: 📊 Histogramas
-    - href: contact.qmd
-      text: ✉️ Contact
+      - href: index.qmd
+        text: 🏠 Inicio
+      - href: about.qmd
+        text: 📖 Acerca de
+      - href: histogramas/index.qmd
+        text: 📊 Histogramas
+      - href: divulgacion.qmd
+        text: 💡Divulgación
+      - href: contact.qmd
+        text: ✉️ Contacto
 
 format:
   html:
