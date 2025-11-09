@@ -4,7 +4,7 @@
 [![GitHub Pages Status](https://img.shields.io/badge/Resultados-En%20Línea-blue)](https://analisis-de-gatos.github.io/robot-physicist/)
 [![Licencia: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-**Retador:** Arturo Sánchez | **Hackers:** [![Equipo Gatos](https://img.shields.io/badge/Equipo-An%C3%A1lisis_de_Gatos-001855?style=plastic&)](#integrantes)
+**Retador:** Arturo Sánchez | **Institución:**  inait SA | **Hackers:** [![Equipo Gatos](https://img.shields.io/badge/Equipo-An%C3%A1lisis_de_Gatos-001855?style=plastic&)](#integrantes)
 
 ---
 
