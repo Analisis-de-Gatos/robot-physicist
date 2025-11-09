@@ -104,9 +104,9 @@ quarto preview
 
 ## 📚 Recursos
 
-- [Datos ATLAS CERN](https://opendata.cern.ch/record/12360)
-- [marimo + Quarto](https://github.com/marimo-team/quarto-marimo)
-- [Docs marimo](https://docs.marimo.io/)
+* **CERN Open Data:** Datasets de 13 TeV del experimento ATLAS [https://opendata.cern.ch/record/12360].
+* **Integración marimo + Quarto:** [https://github.com/marimo-team/quarto-marimo](https://github.com/marimo-team/quarto-marimo)
+* **Guía de marimo:** [https://docs.marimo.io/](https://docs.marimo.io/)
 
 MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
 
