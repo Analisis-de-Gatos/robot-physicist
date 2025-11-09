@@ -84,16 +84,25 @@ quarto preview
 
 ---
 
-## 🤝 Cómo Contribuir
+## 🤝 Cómo Colaborar o Agregar Análisis
 
-- Lee los comentarios y/o README en cada carpeta para buenas prácticas y requisitos.
-- Para nuevos análisis:
-  - Crea subcarpetas en `charts/` con un `index.qmd` y documentación breve.
-  - Usa comentarios para explicar objetivos y lógica.
-  - Si tu análisis es interactivo, implementa bloques marimo.
-- Scripts y utilidades se agregan en la extensión marimo o en `main.py`.
+### Para proponer cambios generales:
+  Haz un fork del repositorio, crea tu propia rama y abre un Pull Request (PR).
+
+### Para agregar un nuevo análisis:
+  Considera crear una subcarpeta en `charts/` (por tema o experimento).
+  Agrega un archivo `index.qmd` en esa subcarpeta, siguiendo las convenciones y ejemplos.
+  Incluye un comentario inicial que explique el propósito del análisis y los métodos usados.
+  Si la subcarpeta introduce módulos o scripts nuevos, actualiza también el `README.md` local si existe.
+  Si tu análisis es interactivo, implementa bloques marimo dentro del `.qmd`.
+  
+### Para scripts o utilidades generales:
+  Puedes contribuirlos en la extensión marimo (`_extensions/`) o en `main.py`, documentando su uso.
+
+**> Sugerencia:** Lee los comentarios y/o README de cada carpeta antes de contribuir, para mantener buenas prácticas y coherencia en el repositorio.
 
 ---
+
 
 ## 🤖 CI/CD Automatizado
 
