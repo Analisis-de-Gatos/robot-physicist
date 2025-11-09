@@ -1,101 +1,20 @@
 ---
-title: "Divulgación"
-
+title: "Preguntas Frecuentes"
 format: 
-
   html:
-
     toc: true
-
     toc-depth: 2
-
     code-fold: true
-
     math: mathjax
+---
+
+# ❓ Preguntas Frecuentes sobre el Bosón de Higgs y ATLAS
+
+Este documento reúne las dudas más comunes sobre los experimentos con el Bosón de Higgs en el LHC y sus análisis con datos reales de ATLAS.
 
 ---
 
-
-
-# ✨ Descubriendo el Bosón de Higgs 
-
-### Un vistazo a los datos reales de ATLAS
-
-
-
-¡Bienvenido al corazón de la física de partículas! Las gráficas que ves aquí son el resultado de un análisis de **datos real** capturados por el experimento **ATLAS** en el Gran Colisionador de Hadrones (**LHC**).
-
-Nuestro objetivo principal: encontrar la huella del **Bosón de Higgs** y medir su masa con precisión.
-
-
-
----
-
-
-
-## 🔬 ¿Qué estamos viendo en la gráfica?
-
-
-
-La gráfica central que analizamos se llama **Histograma de Masa Invariante de Difotones** ($m_{\gamma\gamma}$).
-
-Su idea es sencilla: buscamos eventos donde dos fotones de alta energía ($\mathbf{\gamma\gamma}$) han sido detectados.
-
-Luego, usamos su energía y momento para calcular la **Masa Invariante**, que es la masa de la partícula original que los produjo.
-
-
-
-### 🎯 El pico que buscamos: la firma del Higgs
-
-
-
-Si el Bosón de Higgs se produce y se desintegra en dos fotones ($H \to \gamma\gamma$), el valor de la "masa invariante" calculada será igual a la masa real del Higgs:
-
-$$\approx 125\,\text{GeV}$$
-
-
-
-- **Fondo (El Ruido):** Observamos una curva suave y decreciente (la línea verde punteada en el *zoom*). Esto representa eventos de ruido que provienen de procesos naturales ajenos al Higgs.
-
-- **Señal (El Tesoro):** Sobre ese fondo, hay un pequeño y notable **pico** (la curva azul punteada) que ocurre precisamente alrededor de $\mathbf{125\text{ GeV}}$. Este exceso es la **señal que confirma la existencia del Bosón de Higgs**.
-
-- **Ajuste total:** curva roja = Gauss + Exponencial
-
-
-
----
-
-
-
-## 🧠 Análisis matemático (Fitting)
-
-
-
-Nuestro análisis matemático (*Fitting*) utiliza un modelo que suma dos funciones:
-
-
-
-- 📈 **Campana de Gauss** (curva azul) → modela la señal del Higgs
-
-- 📉 **Función Exponencial** (curva verde) → modela el fondo
-
-
-
-Al ajustar la curva total (roja) a los datos, podemos **cuantificar** la señal, obteniendo la **masa más probable** del Bosón de Higgs y el **número de eventos** que realmente fueron causados por él.
-
-
-
----
-
-
-
-## ❓ Preguntas Frecuentes (Q&A)
-
-
-
-### I. Conceptos Fundamentales
-
-
+## I. Conceptos Fundamentales
 
 ::: {.callout-tip title="¿Qué es $\text{GeV}$?"}
 
@@ -105,8 +24,6 @@ Usando $E=mc^2$, se mide la masa de las partículas en términos de energía. El
 
 :::
 
-
-
 ::: {.callout-tip title="¿Qué es el Bosón de Higgs?"}
 
 El Bosón de Higgs es una partícula elemental, la última pieza clave del Modelo Estándar.
@@ -114,8 +31,6 @@ El Bosón de Higgs es una partícula elemental, la última pieza clave del Model
 Es la manifestación del **Campo de Higgs**, cuya interacción con otras partículas es lo que les otorga su masa. El bosón que detectamos es una "excitación" o quantum de ese campo.
 
 :::
-
-
 
 ::: {.callout-tip title="¿Qué es una Campana de Gauss?"}
 
@@ -125,8 +40,6 @@ Modela cómo las mediciones de la masa, debido a las imprecisiones del detector,
 
 :::
 
-
-
 ::: {.callout-tip title="¿Por qué se utiliza $m_{\gamma\gamma}$ para la Masa Invariante?"}
 
 La notación $m_{\gamma\gamma}$ significa "masa" ($m$) de los "dos fotones" ($\gamma\gamma$). El símbolo $\gamma$ representa un fotón (partícula de luz).
@@ -135,15 +48,9 @@ La masa invariante es una cantidad crucial porque es constante y representa la m
 
 :::
 
-
-
 ---
 
-
-
-### II. Tecnología y Metodología
-
-
+## II. Tecnología y Metodología
 
 ::: {.callout-note title="¿Qué es el experimento ATLAS?"}
 
@@ -153,8 +60,6 @@ Actúa como una gigantesca cámara fotográfica y electrónica, de 7,000 tonelad
 
 :::
 
-
-
 ::: {.callout-note title="¿Qué es el LHC y por qué es necesario?"}
 
 El LHC (Gran Colisionador de Hadrones) es el acelerador de partículas que colisiona protones a velocidades cercanas a la luz.
@@ -162,8 +67,6 @@ El LHC (Gran Colisionador de Hadrones) es el acelerador de partículas que colis
 Es la única forma de generar energías lo suficientemente altas para crear partículas pesadas, como el Higgs, a partir de energía pura ($E=mc^2$).
 
 :::
-
-
 
 ::: {.callout-note title="¿Qué es el fondo exponencial?"}
 
@@ -173,8 +76,6 @@ Se modela con una **función exponencial** porque, en la física de partículas,
 
 :::
 
-
-
 ::: {.callout-note title="¿Qué son los cortes (cuts)?"}
 
 Los *cuts* son **filtros rigurosos** que aplicamos a los datos crudos.
@@ -182,8 +83,6 @@ Los *cuts* son **filtros rigurosos** que aplicamos a los datos crudos.
 Por ejemplo, exigimos que los fotones tengan mucha energía y que estén muy "aislados" (sin otras partículas cercanas). Estos cortes son esenciales para reducir drásticamente el ruido de fondo y maximizar la visibilidad de la pequeña señal del Higgs.
 
 :::
-
-
 
 ::: {.callout-note title="¿Usamos datos reales?"}
 
@@ -193,15 +92,9 @@ Esto permite a estudiantes y al público realizar análisis genuinos utilizando 
 
 :::
 
-
-
 ---
 
-
-
-### III. Confiabilidad e Impacto Científico
-
-
+## III. Confiabilidad e Impacto Científico
 
 ::: {.callout-important title="¿Qué significa $125.1 \pm 0.4\,\text{GeV}$?"}
 
@@ -211,8 +104,6 @@ El $\pm 0.4\text{ GeV}$ es la **incertidumbre** (o error). Significa que la masa
 
 :::
 
-
-
 ::: {.callout-important title="¿Por qué el pico no es más grande?"}
 
 El Bosón de Higgs solo se desintegra en dos fotones en una fracción muy pequeña del tiempo (alrededor del $0.2\%$ de las veces).
@@ -221,8 +112,6 @@ Esto hace que la señal sea débil, pero a cambio, el canal $H \to \gamma\gamma$
 
 :::
 
-
-
 ::: {.callout-important title="¿Por qué seguimos midiéndolo?"}
 
 Seguimos midiendo sus propiedades (masa y cómo interactúa) para buscar **desviaciones** de las predicciones teóricas.
@@ -230,7 +119,5 @@ Seguimos midiendo sus propiedades (masa y cómo interactúa) para buscar **desvi
 Si nuestras mediciones difieren de lo predicho por el Modelo Estándar, esa sería la primera evidencia de **Nueva Física** (partículas o fuerzas que aún no conocemos).
 
 :::
-
-
 
 ---
