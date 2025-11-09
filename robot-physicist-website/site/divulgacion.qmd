@@ -1,0 +1,235 @@
+title: "Divulgación"
+
+format: 
+
+  html:
+
+    toc: true
+
+    toc-depth: 2
+
+    code-fold: true
+
+    math: mathjax
+
+---
+
+
+
+# ✨ Descubriendo el Bosón de Higgs 
+
+### Un vistazo a los datos reales de ATLAS
+
+
+
+¡Bienvenido al corazón de la física de partículas! Las gráficas que ves aquí son el resultado de un análisis de **datos real** capturados por el experimento **ATLAS** en el Gran Colisionador de Hadrones (**LHC**).
+
+Nuestro objetivo principal: encontrar la huella del **Bosón de Higgs** y medir su masa con precisión.
+
+
+
+---
+
+
+
+## 🔬 ¿Qué estamos viendo en la gráfica?
+
+
+
+La gráfica central que analizamos se llama **Histograma de Masa Invariante de Difotones** ($m_{\gamma\gamma}$).
+
+Su idea es sencilla: buscamos eventos donde dos fotones de alta energía ($\mathbf{\gamma\gamma}$) han sido detectados.
+
+Luego, usamos su energía y momento para calcular la **Masa Invariante**, que es la masa de la partícula original que los produjo.
+
+
+
+### 🎯 El pico que buscamos: la firma del Higgs
+
+
+
+Si el Bosón de Higgs se produce y se desintegra en dos fotones ($H \to \gamma\gamma$), el valor de la "masa invariante" calculada será igual a la masa real del Higgs:
+
+$$\approx 125\,\text{GeV}$$
+
+
+
+- **Fondo (El Ruido):** Observamos una curva suave y decreciente (la línea verde punteada en el *zoom*). Esto representa eventos de ruido que provienen de procesos naturales ajenos al Higgs.
+
+- **Señal (El Tesoro):** Sobre ese fondo, hay un pequeño y notable **pico** (la curva azul punteada) que ocurre precisamente alrededor de $\mathbf{125\text{ GeV}}$. Este exceso es la **señal que confirma la existencia del Bosón de Higgs**.
+
+- **Ajuste total:** curva roja = Gauss + Exponencial
+
+
+
+---
+
+
+
+## 🧠 Análisis matemático (Fitting)
+
+
+
+Nuestro análisis matemático (*Fitting*) utiliza un modelo que suma dos funciones:
+
+
+
+- 📈 **Campana de Gauss** (curva azul) → modela la señal del Higgs
+
+- 📉 **Función Exponencial** (curva verde) → modela el fondo
+
+
+
+Al ajustar la curva total (roja) a los datos, podemos **cuantificar** la señal, obteniendo la **masa más probable** del Bosón de Higgs y el **número de eventos** que realmente fueron causados por él.
+
+
+
+---
+
+
+
+## ❓ Preguntas Frecuentes (Q&A)
+
+
+
+### I. Conceptos Fundamentales
+
+
+
+::: {.callout-tip title="¿Qué es $\text{GeV}$?"}
+
+$\text{GeV}$ (Giga-electronvoltio) es la unidad estándar de energía y masa en física de partículas.
+
+Usando $E=mc^2$, se mide la masa de las partículas en términos de energía. El Bosón de Higgs tiene una masa de unos $125\text{ GeV}$.
+
+:::
+
+
+
+::: {.callout-tip title="¿Qué es el Bosón de Higgs?"}
+
+El Bosón de Higgs es una partícula elemental, la última pieza clave del Modelo Estándar.
+
+Es la manifestación del **Campo de Higgs**, cuya interacción con otras partículas es lo que les otorga su masa. El bosón que detectamos es una "excitación" o quantum de ese campo.
+
+:::
+
+
+
+::: {.callout-tip title="¿Qué es una Campana de Gauss?"}
+
+La **Campana de Gauss** (o Distribución Normal) es la curva en forma de campana utilizada para modelar la señal del Higgs.
+
+Modela cómo las mediciones de la masa, debido a las imprecisiones del detector, se dispersan un poco alrededor del valor real, concentrándose la mayoría de los eventos justo en el centro.
+
+:::
+
+
+
+::: {.callout-tip title="¿Por qué se utiliza $m_{\gamma\gamma}$ para la Masa Invariante?"}
+
+La notación $m_{\gamma\gamma}$ significa "masa" ($m$) de los "dos fotones" ($\gamma\gamma$). El símbolo $\gamma$ representa un fotón (partícula de luz).
+
+La masa invariante es una cantidad crucial porque es constante y representa la masa real de la partícula madre que se desintegró.
+
+:::
+
+
+
+---
+
+
+
+### II. Tecnología y Metodología
+
+
+
+::: {.callout-note title="¿Qué es el experimento ATLAS?"}
+
+ATLAS es uno de los detectores gigantes en el CERN.
+
+Actúa como una gigantesca cámara fotográfica y electrónica, de 7,000 toneladas, diseñada para registrar con precisión las trayectorias y energías de las partículas resultantes de las colisiones del LHC.
+
+:::
+
+
+
+::: {.callout-note title="¿Qué es el LHC y por qué es necesario?"}
+
+El LHC (Gran Colisionador de Hadrones) es el acelerador de partículas que colisiona protones a velocidades cercanas a la luz.
+
+Es la única forma de generar energías lo suficientemente altas para crear partículas pesadas, como el Higgs, a partir de energía pura ($E=mc^2$).
+
+:::
+
+
+
+::: {.callout-note title="¿Qué es el fondo exponencial?"}
+
+El fondo son eventos de ruido donde procesos aleatorios imitan la señal del Higgs.
+
+Se modela con una **función exponencial** porque, en la física de partículas, la probabilidad de observar eventos generalmente cae drásticamente (de forma exponencial) a medida que se analiza una masa o energía mayor.
+
+:::
+
+
+
+::: {.callout-note title="¿Qué son los cortes (cuts)?"}
+
+Los *cuts* son **filtros rigurosos** que aplicamos a los datos crudos.
+
+Por ejemplo, exigimos que los fotones tengan mucha energía y que estén muy "aislados" (sin otras partículas cercanas). Estos cortes son esenciales para reducir drásticamente el ruido de fondo y maximizar la visibilidad de la pequeña señal del Higgs.
+
+:::
+
+
+
+::: {.callout-note title="¿Usamos datos reales?"}
+
+Sí, este proyecto se basa en **datos de colisiones reales** proporcionados por el programa de **Datos Abiertos de ATLAS**.
+
+Esto permite a estudiantes y al público realizar análisis genuinos utilizando la misma información que los científicos.
+
+:::
+
+
+
+---
+
+
+
+### III. Confiabilidad e Impacto Científico
+
+
+
+::: {.callout-important title="¿Qué significa $125.1 \pm 0.4\,\text{GeV}$?"}
+
+$125.1\text{ GeV}$ es el valor más probable de la masa medido por el ajuste.
+
+El $\pm 0.4\text{ GeV}$ es la **incertidumbre** (o error). Significa que la masa real está, con alta probabilidad, dentro de un rango de $\pm 0.4\text{ GeV}$ del valor central.
+
+:::
+
+
+
+::: {.callout-important title="¿Por qué el pico no es más grande?"}
+
+El Bosón de Higgs solo se desintegra en dos fotones en una fracción muy pequeña del tiempo (alrededor del $0.2\%$ de las veces).
+
+Esto hace que la señal sea débil, pero a cambio, el canal $H \to \gamma\gamma$ es muy limpio (hay poco ruido), lo cual es ideal para medir la masa con precisión.
+
+:::
+
+
+
+::: {.callout-important title="¿Por qué seguimos midiéndolo?"}
+
+Seguimos midiendo sus propiedades (masa y cómo interactúa) para buscar **desviaciones** de las predicciones teóricas.
+
+Si nuestras mediciones difieren de lo predicho por el Modelo Estándar, esa sería la primera evidencia de **Nueva Física** (partículas o fuerzas que aún no conocemos).
+
+:::
+
+
+
+---
