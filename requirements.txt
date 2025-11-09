@@ -1,6 +1,6 @@
 # Dependencias necesarias para el proyecto "El Físico Remoto"
 #
-# Instalación con: uv pip install -r requirements.txt
+# Instalación con: pip install -r requirements.txt
 
 # I. LECTURA Y MANIPULACIÓN DE DATOS (ATLAS/ROOT)
 uproot             # Para leer archivos ROOT (del CERN) sin dependencia del framework ROOT nativo.
