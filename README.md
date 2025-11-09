@@ -10,7 +10,7 @@
 
 ## 🌟 Resumen del Proyecto
 
-Un *pipeline* CI/CD para análisis de datos abiertos de ATLAS (CERN), integrando Python, marimo, Quarto y dependencias modernas para reproducibilidad y ciencia transparente.  
+Un *pipeline* CI/CD para análisis de datos abiertos de ATLAS (CERN), integrando Python, Quarto y dependencias modernas para reproducibilidad y ciencia transparente.  
 Con cada `git push` a `main`, se ejecuta todo el proceso: configuración, análisis físico, compilación del sitio y publicación automática.
 
 ### 🔗 Resultados en Vivo
@@ -25,7 +25,6 @@ Con cada `git push` a `main`, se ejecuta todo el proceso: configuración, análi
 | Característica       | Herramientas/Frameworks     | Propósito                                   |
 | :------------------- | :------------------------- | :-------------------------------------------|
 | Análisis Físico      | Python, uproot, awkward, hist, Plotly | Lectura, exploración y visualización física |
-| Interactividad       | marimo                     | Widgets y celdas reactivas en la web        |
 | Sitio Web            | Quarto                     | Documentación reproducible y visual         |
 | Dependencias         | uv, pyproject.toml         | Entornos reproducibles y modernos           |
 | Automatización CI/CD | GitHub Actions             | Orquestación y despliegue                   |
@@ -43,7 +42,7 @@ Con cada `git push` a `main`, se ejecuta todo el proceso: configuración, análi
 ├── data_analysis/                             # Contiene scripts y datos del análisis.
 │   ├── data.csv                               # Fuente de datos para el análisis.
 │   ├── plotly_higgs_analysis.py               # Script principal de Python para generar gráficos Plotly.
-│   └── plots/                                 # Directorio de plots intermedios (puede no estar versionado).
+│   └── plots/                                 # Directorio de plots intermedios.
 ├── robot-physicist-website/                   # Archivos fuente para la construcción del sitio web Quarto.
 │   ├── .gitignore
 │   ├── .python-version
@@ -52,7 +51,7 @@ Con cada `git push` a `main`, se ejecuta todo el proceso: configuración, análi
 │   ├── index.qmd                              # Fuente de la página principal.
 │   ├── main.py                                # Script principal (utilidad o punto de entrada).
 │   ├── pyproject.toml                         # Configuración y dependencias de Python.
-│   ├── uv.lock                                # Archivo de bloqueo de dependencias (generado por uv).
+│   ├── uv.lock                                # Archivo de bloqueo de dependencias.
 │   ├── styles.css
 │   └── logo.png
 ├── atlas-dataset-A/                           # Resultados y documentación del análisis del Dataset A.
@@ -130,7 +129,6 @@ Puedes contribuirlos en el workspace de análisis o la web (`robot-physicist-web
 - **Quarto:** [https://quarto.org/](https://quarto.org/)
 - **Plotly:** [https://plotly.com/python/](https://plotly.com/python/)
 - **uv (gestión de dependencias):** [https://github.com/astral-sh/uv](https://github.com/astral-sh/uv)
-- **Guía de marimo:** [https://docs.marimo.io/](https://docs.marimo.io/)
 
 MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
 
@@ -138,11 +136,7 @@ MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
 
 ## Integrantes
 
-[![Angel](https://img.shields.io/badge/Angel-008000?style=flat-square&logo=github)](https://github.com/aangcontreras)  
-[![Antonia](https://img.shields.io/badge/Antonia-pink?style=flat-square&logo=github)](https://github.com/AntoniaMGI)  
-[![Eugenia](https://img.shields.io/badge/Eugenia-241571?style=flat-square&logo=github)](https://github.com/eunight)  
-[![Juan Carlos](https://img.shields.io/badge/Juan%20Carlos-6a1b9a?style=flat-square&logo=github)](https://github.com/Jcosmic)  
-[![Juan Daniel](https://img.shields.io/badge/Juan%20Daniel-0288d1?style=flat-square&logo=github)](https://github.com/Vzkey0)
+[![Angel](https://img.shields.io/badge/Angel-008000?style=flat-square&logo=github)](https://github.com/aangcontreras) [![Antonia](https://img.shields.io/badge/Antonia-pink?style=flat-square&logo=github)](https://github.com/AntoniaMGI) [![Eugenia](https://img.shields.io/badge/Eugenia-241571?style=flat-square&logo=github)](https://github.com/eunight) [![Juan Carlos](https://img.shields.io/badge/Juan%20Carlos-6a1b9a?style=flat-square&logo=github)](https://github.com/Jcosmic) [![Juan Daniel](https://img.shields.io/badge/Juan%20Daniel-0288d1?style=flat-square&logo=github)](https://github.com/Vzkey0)
 
 ---
 
