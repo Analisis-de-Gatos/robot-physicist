@@ -47,7 +47,7 @@ Nuestro proyecto combina un stack simple y trazable con fuentes de datos verific
 ::: {.column width="50%"}
 ### Stack tecnológico
 - Lenguajes: Python (Matplotlib, Pandas, NumPy)
-- Visualización / Sitio: Quarto + Marimo
+- Visualización / Sitio: Quarto
 - CI/CD: GitHub Actions y Docker para portabilidad
 :::
 ::: {.column width="50%"}
