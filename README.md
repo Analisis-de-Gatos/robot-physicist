@@ -97,8 +97,11 @@ quarto preview
 
 ## 🤖 CI/CD Automatizado
 
-- `.github/workflows/publish-site.yml` automatiza: configuración, instalación, análisis, render y despliegue en GitHub Pages.
-- El sitio publicado refleja siempre los resultados reproducibles y actuales.
+El archivo `.github/workflows/publish-site.yml` maneja la automatización completa:
+
+* **Flujo:** `push` ➡️ Configuración del entorno ➡️ Instalación de `uproot`/`marimo` ➡️ **`quarto render`** (ejecuta el análisis) ➡️ Despliegue a GitHub Pages.
+
+Este *pipeline* garantiza que el sitio web refleje siempre el **resultado más reciente y reproducible** de tu análisis científico.
 
 ---
 
