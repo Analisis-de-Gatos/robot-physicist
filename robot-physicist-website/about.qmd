@@ -1,3 +1,5 @@
+---
+
 ***
 title: "Sobre el proyecto"
 page-layout: full
@@ -54,6 +56,4 @@ Este proyecto es desarrollado por estudiantes apasionados por la ciencia abierta
 
 ## 📁 Enlace del repositorio
 
-[https://github.com/Analisis-de-Gatos/robot-physicist](https://github.com/Analisis-de-Gatos/robot-physicist)[1]
-
-[1](https://github.com/Analisis-de-Gatos/robot-physicist)
+[https://github.com/Analisis-de-Gatos/robot-physicist](https://github.com/Analisis-de-Gatos/robot-physicist)
