@@ -4,8 +4,7 @@
 [![GitHub Pages Status](https://img.shields.io/badge/Resultados-En%20Línea-blue)](https://analisis-de-gatos.github.io/robot-physicist/)
 [![Licencia: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-**Retador:** Arturo Sánchez | **Hackers:** [![Equipo Análisis de Gatos](https://img.shields.io/badge/An%C3%A1lisis_de_Gatos-blue?style=for-the-badge&logo=github)](#miembros)
-
+**Retador:** Arturo Sánchez | **Hackers:** [![Equipo Gatos](https://img.shields.io/badge/Equipo-An%C3%A1lisis_de_Gatos-001855?style=plastic&)](#integrantes)
 
 ---
 
@@ -124,3 +123,8 @@ Este *pipeline* garantiza que el sitio web refleje siempre el **resultado más r
 * **Guía de marimo:** [https://docs.marimo.io/](https://docs.marimo.io/)
 
 Este repositorio está publicado bajo la licencia **MIT**. Consulta el archivo [`./LICENSE`](./LICENSE) para detalles completos.
+
+## Integrantes
+
+[![Miguel](https://img.shields.io/badge/Gato_Miguel-lider-orange?style=flat-square&logo=github)](enlace-perfil)  
+[![Jose](https://img.shields.io/badge/Gato_Jose-backend-blue?style=flat-square&logo=github)](enlace-perfil)
