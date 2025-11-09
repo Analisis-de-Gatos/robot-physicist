@@ -13,8 +13,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    # Solo ejecutar si el workflow anterior fue exitoso
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # Solo ejecutar si el workflow anterior fue exitoso o (si hay un commit nuevo)
+    if: |
+      github.event_name != 'workflow_run' || 
+      github.event.workflow_run.conclusion == 'success'
     permissions:
       contents: write
       pages: write
