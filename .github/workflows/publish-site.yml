@@ -38,11 +38,9 @@ jobs:
       - name: Instalar uv binario externo
         run: curl -Ls https://astral.sh/uv/install.sh | bash
 
-      # Paso 5: Clonar extensión Quarto marimo manualmente
-      - name: Clonar extensión Quarto marimo
+      - name: Install dependencies with uv
         run: |
-          mkdir -p _extensions/marimo-team
-          git clone https://github.com/marimo-team/quarto-marimo.git _extensions/marimo-team/quarto-marimo
+          uv pip install jupyter
 
       # Paso 6: Renderizar sitio Quarto
       - name: Renderizar sitio Quarto
