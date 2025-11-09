@@ -35,9 +35,11 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
-      # Paso 5: Instalar extensión Quarto marimo
-      - name: Instalar extensión Quarto marimo
-        run: quarto add marimo-team/quarto-marimo --yes
+      # Paso 5: Clonar extensión Quarto marimo manualmente
+      - name: Clonar extensión Quarto marimo
+        run: |
+          mkdir -p _extensions/marimo-team
+          git clone https://github.com/marimo-team/quarto-marimo.git _extensions/marimo-team/quarto-marimo
 
       # Paso 6: Renderizar sitio Quarto
       - name: Renderizar sitio Quarto
