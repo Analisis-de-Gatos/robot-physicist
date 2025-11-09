@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS Higgs Analysis - Plotly Plots</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+        }
+        .plot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .plot-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .plot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        .plot-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .plot-card a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .plot-card a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        .metadata {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 10px;
+        }
+        .metadata-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .metadata-item:last-child {
+            border-bottom: none;
+        }
+        .metadata-label {
+            font-weight: 600;
+        }
+        .timestamp {
+            color: #999;
+            font-size: 0.85em;
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .no-plots {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 ATLAS Open Data</h1>
+        <div class="subtitle">Análisis del Bosón de Higgs - Gráficos Interactivos con Plotly</div>
+        <div class="plot-grid">
+                  <div class="plot-card">
+                      <h3>📊 plotly_higgs_data_B.GamGam_cut10000_E105-160</h3>
+                      <a href="plotly_higgs_data_B.GamGam_cut10000_E105-160.html" target="_blank">Ver Gráfico Interactivo →</a>
+                      <div class="metadata">
+                          <div class="metadata-item"><span class="metadata-label">Dataset:</span><span>plotly_higgs_data_B.GamGam_cut10000_E105-160</span></div>
+                          <div class="metadata-item"><span class="metadata-label">Cut (pT):</span><span>10.0 GeV</span></div>
+                          <div class="metadata-item"><span class="metadata-label">Energy Range:</span><span>105-160 GeV</span></div>
+                      </div>
+                      <div class="timestamp">Generado: 2025-11-09 08:14:24</div>
+                  </div>
+                  <div class="plot-card">
+                      <h3>📊 plotly_higgs_data_B.GamGam_cut15000_E105-160</h3>
+                      <a href="plotly_higgs_data_B.GamGam_cut15000_E105-160.html" target="_blank">Ver Gráfico Interactivo →</a>
+                      <div class="metadata">
+                          <div class="metadata-item"><span class="metadata-label">Dataset:</span><span>plotly_higgs_data_B.GamGam_cut15000_E105-160</span></div>
+                          <div class="metadata-item"><span class="metadata-label">Cut (pT):</span><span>15.0 GeV</span></div>
+                          <div class="metadata-item"><span class="metadata-label">Energy Range:</span><span>105-160 GeV</span></div>
+                      </div>
+                      <div class="timestamp">Generado: 2025-11-09 08:14:24</div>
+                  </div>
+        </div>
+    </div>
+</body>
+</html>
