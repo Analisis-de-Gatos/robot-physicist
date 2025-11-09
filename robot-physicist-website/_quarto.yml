@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: site
 
 website:
   title: "ROBOT FISICO"
@@ -13,7 +14,6 @@ website:
       text: 📊 Charts
     - href: contact.qmd
       text: ✉️ Contact
-  output-dir: site
 
 format:
   html:
