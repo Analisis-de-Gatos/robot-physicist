@@ -3,7 +3,7 @@
 
 [![GitHub Actions | Quarto Publish](https://img.shields.io/github/actions/workflow/status/Analisis-de-Gatos/robot-physicist/publish-site.yml?label=GitHub%20Actions&style=for-the-badge&logo=github)](https://github.com/Analisis-de-Gatos/robot-physicist/actions?query=workflow%3A%22Quarto+Publish%22)
 [![GitHub Pages Status](https://img.shields.io/badge/Resultados-En%20Línea-blue)](https://analisis-de-gatos.github.io/robot-physicist/)
-[![Licencia: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Licencia: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE) [![Licencia: CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
 **Retador:** Arturo Sánchez | **Institución:** inait SA | **Hackers:** [![Equipo Gatos](https://img.shields.io/badge/Equipo-An%C3%A1lisis_de_Gatos-001855?style=plastic&)](#integrantes)
 
@@ -138,8 +138,6 @@ Puedes contribuirlos en el workspace de análisis o la web (`robot-physicist-web
 Este proyecto —incluyendo el video de YouTube y todos los materiales audiovisuales— está protegido por:
 
 MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
-
-🌐 [![Licencia: CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png)](https://creativecommons.org/licenses/by/4.0/)
 
 🔓 **Creative Commons Attribution 4.0 Internacional (CC BY 4.0)**
 
