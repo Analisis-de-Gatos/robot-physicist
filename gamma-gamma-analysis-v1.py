@@ -8,13 +8,13 @@ from ROOT import TMath
 parser = argparse.ArgumentParser()
 parser.add_argument("file", help="Data file to be analyzed")
 parser.add_argument(
-    "--cut-value", type=float, default=10000, help="Cut value for the analysis"
+    "--cut-value", type=list, default=10000, help="Cut value for the analysis"
 )
 parser.add_argument(
-    "--min-energy", type=float, default=105, help="Minimum energy in GeV"
+    "--min-energy", type=list, default=105, help="Minimum energy in GeV"
 )
 parser.add_argument(
-    "--max-energy", type=float, default=160, help="Maximum energy in GeV"
+    "--max-energy", type=list, default=160, help="Maximum energy in GeV"
 )
 
 args = parser.parse_args()
@@ -24,6 +24,11 @@ root_file_url = args.file
 cut_value = args.cut_value
 min_energy = args.min_energy
 max_energy = args.max_energy
+
+for cut_value in cut_value:
+    for min_energy in min_energy:
+        for max_energy in max_energy:
+            if min_energy < max_energy:
 
 print("Analyzing with parameters:")
 print(f"- Cut value: {cut_value}")

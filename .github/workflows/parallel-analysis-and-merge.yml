@@ -71,6 +71,11 @@ jobs:
               --min-energy "${{ github.event.inputs.min_energy }}" \
               --max-energy "${{ github.event.inputs.max_energy }}"
 
+      - name: Fix file permissions
+        run: |
+          sudo chown -R $USER:$USER plots/ || true
+          sudo chmod -R u+rw plots/ || true
+
       - name: Copy generated plots into Quarto site
         run: |
           mkdir -p robot-physicist-website/charts/marimotest/plots

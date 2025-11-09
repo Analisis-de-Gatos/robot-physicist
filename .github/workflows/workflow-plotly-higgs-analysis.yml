@@ -1,0 +1,325 @@
+name: Process ATLAS Plotly Higgs Analysis
+
+on:
+  workflow_dispatch:
+    inputs:
+      data_files:
+        description: "Comma-separated list of ROOT file URLs or paths"
+        default: "http://www.universidad.ch/ATLAS/outreach/opendata-2020/data/data_B.GamGam.root"
+        required: true
+      cut_values:
+        description: "Comma-separated cut values in MeV (e.g., 10000,15000)"
+        default: "10000"
+        required: false
+      min_energies:
+        description: "Comma-separated minimum energies in GeV (e.g., 105,110)"
+        default: "105"
+        required: false
+      max_energies:
+        description: "Comma-separated maximum energies in GeV (e.g., 160,165)"
+        default: "160"
+        required: false
+      bins:
+        description: "Number of bins for histogram"
+        default: "30"
+        required: false
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix_config: ${{ steps.prepare_matrix.outputs.matrix_config }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Prepare matrix configuration
+        id: prepare_matrix
+        run: |
+          # Convertir las listas separadas por comas en arrays
+          IFS=',' read -ra FILES <<< "${{ github.event.inputs.data_files }}"
+          IFS=',' read -ra CUTS <<< "${{ github.event.inputs.cut_values }}"
+          IFS=',' read -ra MIN_E <<< "${{ github.event.inputs.min_energies }}"
+          IFS=',' read -ra MAX_E <<< "${{ github.event.inputs.max_energies }}"
+
+          # Crear combinaciones de parámetros
+          matrix_json="["
+          first=true
+
+          for file in "${FILES[@]}"; do
+            for cut in "${CUTS[@]}"; do
+              for min_e in "${MIN_E[@]}"; do
+                for max_e in "${MAX_E[@]}"; do
+                  # Validar que min_energy < max_energy
+                  if (( $(echo "$min_e < $max_e" | bc -l) )); then
+                    if [ "$first" = true ]; then
+                      first=false
+                    else
+                      matrix_json+=","
+                    fi
+                    matrix_json+="{\"file\":\"$file\",\"cut\":\"$cut\",\"min_e\":\"$min_e\",\"max_e\":\"$max_e\"}"
+                  fi
+                done
+              done
+            done
+          done
+
+          matrix_json+="]"
+          echo "matrix_config=$matrix_json" >> $GITHUB_OUTPUT
+          echo "Generated matrix configurations:"
+          echo "$matrix_json" | jq .
+
+  process-file:
+    needs: setup
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        config: ${{ fromJSON(needs.setup.outputs.matrix_config) }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          version: "latest"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies with uv
+        run: |
+          uv pip install --system uproot awkward numpy plotly scipy kaleido
+
+      - name: Run Plotly Higgs Analysis
+        run: |
+          python plotly_higgs_analysis.py \
+            "${{ matrix.config.file }}" \
+            --cut-value "${{ matrix.config.cut }}" \
+            --min-energy "${{ matrix.config.min_e }}" \
+            --max-energy "${{ matrix.config.max_e }}" \
+            --bins "${{ github.event.inputs.bins }}" \
+            --output-dir plots
+
+      - name: Copy generated plots into Quarto site
+        run: |
+          mkdir -p robot-physicist-website/charts/marimotest/plots
+          cp plots/plotly_*.html robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+
+      - name: Commit and Push Plotly HTML
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          if ls plots/plotly_*.html 1> /dev/null 2>&1; then
+            git add plots/ robot-physicist-website/charts/marimotest/plots/
+            git diff --cached --exit-code || git commit -m "Add Plotly analysis: cut=${{ matrix.config.cut }}, E=[${{ matrix.config.min_e }}-${{ matrix.config.max_e }}]" --allow-empty
+            git pull --rebase origin main || git pull origin main
+            git push origin HEAD:main
+          else
+            echo "No plot generated"
+          fi
+
+  create-index:
+    needs: process-file
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Pull latest changes
+        run: |
+          git pull origin main
+
+      - name: Create HTML index for plots
+        run: |
+          cd plots
+          cat > index.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>ATLAS Higgs Analysis - Plotly Plots</title>
+              <style>
+                  * {
+                      margin: 0;
+                      padding: 0;
+                      box-sizing: border-box;
+                  }
+                  body {
+                      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      min-height: 100vh;
+                      padding: 20px;
+                  }
+                  .container {
+                      max-width: 1200px;
+                      margin: 0 auto;
+                      background: white;
+                      border-radius: 20px;
+                      padding: 40px;
+                      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                  }
+                  h1 {
+                      color: #333;
+                      text-align: center;
+                      margin-bottom: 10px;
+                      font-size: 2.5em;
+                  }
+                  .subtitle {
+                      text-align: center;
+                      color: #666;
+                      margin-bottom: 40px;
+                      font-size: 1.2em;
+                  }
+                  .plot-grid {
+                      display: grid;
+                      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                      gap: 20px;
+                      margin-top: 30px;
+                  }
+                  .plot-card {
+                      background: #f8f9fa;
+                      border-radius: 12px;
+                      padding: 20px;
+                      transition: all 0.3s ease;
+                      border: 2px solid transparent;
+                  }
+                  .plot-card:hover {
+                      transform: translateY(-5px);
+                      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+                      border-color: #667eea;
+                  }
+                  .plot-card h3 {
+                      color: #333;
+                      margin-bottom: 10px;
+                      font-size: 1.1em;
+                  }
+                  .plot-card a {
+                      color: #667eea;
+                      text-decoration: none;
+                      font-weight: 600;
+                      display: inline-block;
+                      margin-bottom: 10px;
+                  }
+                  .plot-card a:hover {
+                      color: #764ba2;
+                      text-decoration: underline;
+                  }
+                  .metadata {
+                      font-size: 0.9em;
+                      color: #666;
+                      margin-top: 10px;
+                  }
+                  .metadata-item {
+                      display: flex;
+                      justify-content: space-between;
+                      padding: 5px 0;
+                      border-bottom: 1px solid #e0e0e0;
+                  }
+                  .metadata-item:last-child {
+                      border-bottom: none;
+                  }
+                  .metadata-label {
+                      font-weight: 600;
+                  }
+                  .timestamp {
+                      color: #999;
+                      font-size: 0.85em;
+                      text-align: center;
+                      margin-top: 15px;
+                      padding-top: 15px;
+                      border-top: 1px solid #e0e0e0;
+                  }
+                  .no-plots {
+                      text-align: center;
+                      padding: 60px 20px;
+                      color: #666;
+                      font-size: 1.2em;
+                  }
+              </style>
+          </head>
+          <body>
+              <div class="container">
+                  <h1>🔬 ATLAS Open Data</h1>
+                  <div class="subtitle">Análisis del Bosón de Higgs - Gráficos Interactivos con Plotly</div>
+                  <div class="plot-grid">
+          EOF
+
+          # Procesar archivos y extraer parámetros del nombre
+          shopt -s nullglob
+          files=(plotly_higgs_*.html)
+
+          if [ ${#files[@]} -eq 0 ]; then
+            echo '                  <div class="no-plots">No hay gráficos disponibles todavía.</div>' >> index.html
+          else
+            for file in "${files[@]}"; do
+              # Extraer parámetros del nombre del archivo
+              # Formato: plotly_higgs_DATASET_cutVALUE_EMIN-MAX.html
+              filename=$(basename "$file" .html)
+              
+              # Extraer dataset
+              dataset=$(echo "$filename" | sed -E 's/plotly_higgs_([^_]+)_cut.*/\1/')
+              
+              # Extraer cut value
+              cut=$(echo "$filename" | grep -oP 'cut\K[0-9]+' || echo "N/A")
+              
+              # Extraer rango de energía
+              energy_range=$(echo "$filename" | grep -oP 'E\K[0-9]+-[0-9]+' || echo "N/A")
+              
+              echo "                  <div class=\"plot-card\">" >> index.html
+              echo "                      <h3>📊 $dataset</h3>" >> index.html
+              echo "                      <a href=\"$file\" target=\"_blank\">Ver Gráfico Interactivo →</a>" >> index.html
+              echo "                      <div class=\"metadata\">" >> index.html
+              echo "                          <div class=\"metadata-item\"><span class=\"metadata-label\">Dataset:</span><span>$dataset</span></div>" >> index.html
+              
+              if [ "$cut" != "N/A" ]; then
+                cut_gev=$(echo "scale=1; $cut / 1000" | bc)
+                echo "                          <div class=\"metadata-item\"><span class=\"metadata-label\">Cut (pT):</span><span>${cut_gev} GeV</span></div>" >> index.html
+              fi
+              
+              if [ "$energy_range" != "N/A" ]; then
+                echo "                          <div class=\"metadata-item\"><span class=\"metadata-label\">Energy Range:</span><span>$energy_range GeV</span></div>" >> index.html
+              fi
+              
+              echo "                      </div>" >> index.html
+              echo "                      <div class=\"timestamp\">Generado: $(date '+%Y-%m-%d %H:%M:%S')</div>" >> index.html
+              echo "                  </div>" >> index.html
+            done
+          fi
+
+          cat >> index.html << 'EOF'
+                  </div>
+              </div>
+          </body>
+          </html>
+          EOF
+
+      - name: Copy index to Quarto site
+        run: |
+          mkdir -p robot-physicist-website/charts/marimotest/plots
+          cp plots/index.html robot-physicist-website/charts/marimotest/plots/ 2>/dev/null || true
+
+      - name: Commit and Push Index
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add plots/index.html robot-physicist-website/charts/marimotest/plots/index.html || echo "No index file"
+          git diff --cached --exit-code || git commit -m "Add/Update plot index page" --allow-empty
+          git pull --rebase origin main || git pull origin main
+          git push origin HEAD:main

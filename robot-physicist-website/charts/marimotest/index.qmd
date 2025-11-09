@@ -10,7 +10,7 @@ filters:
     - marimo-team/marimo
 ---
 
-# Just another Quarto project
+# Análisis físico automatizado, utilizando datos abiertos del experimento ATLAS (CERN)
 
 ```{python}
 from pathlib import Path
