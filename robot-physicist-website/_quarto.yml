@@ -1,9 +1,11 @@
 project:
   type: website
   output-dir: site
+  
 
 website:
   title: "El FÍSICO ROBOT"
+  favicon: gato.png
   navbar:
     right:
       - href: index.qmd
