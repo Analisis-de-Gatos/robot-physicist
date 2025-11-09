@@ -6,6 +6,7 @@ project:
 website:
   title: "El FÍSICO ROBOT"
   favicon: gato.png
+  logo: gato.png
   navbar:
     right:
       - href: index.qmd
