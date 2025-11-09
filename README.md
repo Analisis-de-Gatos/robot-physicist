@@ -136,7 +136,7 @@ MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
 
 ## Integrantes
 
-[![Angel](https://img.shields.io/badge/Angel-008000?style=flat-square&logo=github)](https://github.com/aangcontreras) [![Antonia](https://img.shields.io/badge/Antonia-pink?style=flat-square&logo=github)](https://github.com/AntoniaMGI) [![Eugenia](https://img.shields.io/badge/Eugenia-241571?style=flat-square&logo=github)](https://github.com/eunight) [![Juan Carlos](https://img.shields.io/badge/Juan%20Carlos-6a1b9a?style=flat-square&logo=github)](https://github.com/Jcosmic) [![Juan Daniel](https://img.shields.io/badge/Juan%20Daniel-0288d1?style=flat-square&logo=github)](https://github.com/Vzkey0)
+[![Angel](https://img.shields.io/badge/Angel-008000?style=flat-square&logo=github)](https://github.com/aangcontreras) [![Antonia](https://img.shields.io/badge/Antonia-FF69B4?style=flat-square&logo=github)](https://github.com/AntoniaMGI) [![Eugenia](https://img.shields.io/badge/Eugenia-241571?style=flat-square&logo=github)](https://github.com/eunight) [![Juan Carlos](https://img.shields.io/badge/Juan%20Carlos-6a1b9a?style=flat-square&logo=github)](https://github.com/Jcosmic) [![Juan Daniel](https://img.shields.io/badge/Juan%20Daniel-0288d1?style=flat-square&logo=github)](https://github.com/Vzkey0)
 
 ---
 
