@@ -49,6 +49,15 @@ body::before {
     text-decoration: none;
 }
 
+.navbar-title {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-title img {
+  height: 32px;
+  margin-right: 10px;
+}
 
 /* Hero banner con estilo suave */
 .hero {
