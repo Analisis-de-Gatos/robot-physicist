@@ -22,16 +22,16 @@ Usamos tecnologías modernas como **Quarto**, **Marimo**, **Python**, y **GitHub
 - 🐾 Métricas del equipo y del robot  
 - 📁 Código abierto y documentación clara  
 
-## Roadmap
+## 🗺️ Roadmap
 
-Automatizar el siguiente flujo de trabajo:
+Automatiza el siguiente flujo de trabajo:
 
-Código a analisis a visualización 
+Código  ➡️  analisis  ➡️  visualización 
 
 Esto para que los resultados científicos esten siempre reproducibles, verificables y al día.
 
 
-## ¿Por qué es importante?
+## 📣 ¿Por qué es relevante?
 
 - Reduce tiempos y errores al actualizar los datos en linea
 - Buenas practicas de ciencia y reproducibilidad, lo que facilita la colaboración 
