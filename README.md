@@ -112,7 +112,7 @@ MIT 2025 — ver [`LICENSE`](./LICENSE) para detalles.
 
 ---
 
-## 👥 Integrantes
+## Integrantes
 
 [![Angel](https://img.shields.io/badge/Angel-008000?style=flat-square&logo=github)](https://github.com/aangcontreras)
 [![Antonia](https://img.shields.io/badge/Antonia-pink?style=flat-square&logo=github)](https://github.com/AntoniaMGI)
