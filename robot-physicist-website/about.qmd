@@ -1,7 +1,7 @@
----
+***
 title: "Sobre el proyecto"
 page-layout: full
----
+***
 
 # ⚛️ El Físico Robot  
 **Physics on Autopilot — Ciencia Transparente y Automatizada**
@@ -11,11 +11,11 @@ Cada `git push` a la rama principal desencadena una GitHub Action que ejecuta el
 
 - 🐍 Configura el entorno Python y Quarto  
 - 📦 Instala las dependencias científicas (`uproot`, `awkward-array`, `hist`)  
-- 🧪 Ejecuta el análisis físico con Python y Marimo  
+- 🧪 Ejecuta el análisis físico con Python  
 - 🖥️ Compila el sitio web con Quarto  
 - 🚀 Publica automáticamente en GitHub Pages
 
----
+***
 
 ## 🌟 Objetivo del Proyecto
 
@@ -27,18 +27,18 @@ Este enfoque permite que cualquier persona pueda:
 - Reproducir el análisis completo
 - Contribuir al desarrollo del robot físico
 
----
+***
 
 ## ⚙️ Tecnologías Clave
 
-| Característica       | Herramientas                              | Propósito en el Reto                                      |
-|----------------------|-------------------------------------------|------------------------------------------------------------|
-| Análisis Físico      | Python, uproot, awkward-array, hist       | Lectura eficiente de ROOT y cálculo de masas invariantes   |
-| Interactividad       | Marimo                                    | Celdas reactivas y widgets para análisis dinámico          |
-| Documentación        | Quarto                                    | Sitio web profesional con contenido dinámico               |
-| Automatización CI/CD | GitHub Actions                            | Orquestación del flujo completo y despliegue continuo      |
+| Característica       | Herramientas                               | Propósito en el Reto                                      |
+|----------------------|--------------------------------------------|------------------------------------------------------------|
+| Análisis Físico      | Python, uproot, awkward-array, hist        | Lectura eficiente de ROOT y cálculo de masas invariantes   |
+| Interactividad       | Plotlib de Python                          | Gráficas dinámicas e interactivas para análisis visual     |
+| Documentación        | Quarto                                     | Sitio web profesional con contenido dinámico               |
+| Automatización CI/CD | GitHub Actions                             | Orquestación del flujo completo y despliegue continuo      |
 
----
+***
 
 ## 🧑‍🔬 Nuestro Equipo
 
@@ -50,6 +50,10 @@ Este proyecto es desarrollado por estudiantes apasionados por la ciencia abierta
 - **Antonia Morales** — Estudiante de Física  
 - **Ángel Contreras** — Estudiante de Matemática
 
----
+***
 
-## 📁 Estructura del Repositorio
+## 📁 Enlace del repositorio
+
+[https://github.com/Analisis-de-Gatos/robot-physicist](https://github.com/Analisis-de-Gatos/robot-physicist)[1]
+
+[1](https://github.com/Analisis-de-Gatos/robot-physicist)
