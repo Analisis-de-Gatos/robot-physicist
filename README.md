@@ -1,10 +1,11 @@
 # ⚛️ El Físico Remoto (Physics on Autopilot)
 
-[![GitHub Actions Status](https://github.com/Analisis-de-Gatos/robot-physicist/workflows/Quarto%20Publish/badge.svg)](https://github.com/Analisis-de-Gatos/robot-physicist/actions?query=workflow%3A%22Quarto+Publish%22)
+[![Quarto Publish](https://img.shields.io/github/actions/workflow/status/Analisis-de-Gatos/robot-physicist/quarto-publish.yml?label=Quarto%20Publish&style=for-the-badge&logo=github)](https://github.com/Analisis-de-Gatos/robot-physicist/actions?query=workflow%3A%22Quarto+Publish%22)
 [![GitHub Pages Status](https://img.shields.io/badge/Resultados-En%20Línea-blue)](https://analisis-de-gatos.github.io/robot-physicist/)
 [![Licencia: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-**Autor:** Arturo Sánchez | **Retador:** Equipo Análisis de Gatos
+**Retador:** Arturo Sánchez | **Hackers:** [![Equipo Análisis de Gatos](https://img.shields.io/badge/An%C3%A1lisis_de_Gatos-blue?style=for-the-badge&logo=github)](#miembros)
+
 
 ---
 
