@@ -35,6 +35,12 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
+      - name: Instalar uv ejecutable Python
+        run: pip install uv
+
+      - name: Instalar uv binario externo
+        run: curl -Ls https://astral.sh/uv/install.sh | bash
+
       # Paso 5: Clonar extensión Quarto marimo manualmente
       - name: Clonar extensión Quarto marimo
         run: |
