@@ -23,7 +23,7 @@ jobs:
       - name: Configurar Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       # Paso 3: Instalar Quarto (sin python-version)
       - name: Instalar Quarto
@@ -32,9 +32,6 @@ jobs:
           version: 1.4.550
 
       # Paso 4: Instalar dependencias
-      - name: Instalar dependencias
-        run: pip install -r requirements.txt
-
       - name: Instalar uv ejecutable Python
         run: pip install uv
 
